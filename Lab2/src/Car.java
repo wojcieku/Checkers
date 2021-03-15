@@ -23,6 +23,14 @@ public class Car extends Vehicle {
         this.brand = brand;
     }
 
+    public void setCurrentGear(int currentGear) {
+        this.currentGear = currentGear;
+    }
+
+    public void setNumberOfPassengers(int numberOfPassengers) {
+        this.numberOfPassengers = numberOfPassengers;
+    }
+
     public int getNumberOfGears() {
         return numberOfGears;
     }
