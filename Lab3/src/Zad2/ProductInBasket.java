@@ -11,4 +11,17 @@ public class ProductInBasket extends Product {
     public void setQuantityOfProduct(int quantityOfProduct) {
         this.quantityOfProduct = quantityOfProduct;
     }
+
+    public int getQuantityOfProduct() {
+        return quantityOfProduct;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductInBasket{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", quantityOfProduct=" + quantityOfProduct +
+                '}';
+    }
 }

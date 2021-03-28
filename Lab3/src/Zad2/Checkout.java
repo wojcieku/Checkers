@@ -68,6 +68,5 @@ public class Checkout {
         queue.addLast(c1);
 
         service(queue);
-
     }
 }

@@ -9,14 +9,6 @@ public class Product {
         this.price = price;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "name='" + name + '\'' +
-                ", price=" + price +
-                '}';
-    }
-
     public void setPrice(double price) {
         this.price = price;
     }
@@ -25,4 +17,19 @@ public class Product {
         this.name = name;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }
