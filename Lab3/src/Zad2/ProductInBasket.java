@@ -18,10 +18,9 @@ public class ProductInBasket extends Product {
 
     @Override
     public String toString() {
-        return "ProductInBasket{" +
-                "name='" + name + '\'' +
+        return  "name='" + name + '\'' +
                 ", price=" + price +
-                ", quantityOfProduct=" + quantityOfProduct +
-                '}';
+                ", quantityOfProduct=" + quantityOfProduct;
+
     }
 }

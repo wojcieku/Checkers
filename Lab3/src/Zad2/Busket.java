@@ -19,9 +19,9 @@ public class Busket {
 
     @Override
     public String toString() {
-        return "Busket{" +
-                "productsInBusket=" + productsInBusket +
-                '}';
+        return "" +
+                productsInBusket;
+
     }
 
 }

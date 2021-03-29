@@ -10,6 +10,7 @@ public class Checkout {
             for(var temp:busket.productsInBusket){
                 sum += (temp.price* temp.quantityOfProduct);
             }
+            System.out.println(client.surname+"busket content: "+busket);
             System.out.println(client.surname+" should pay: "+sum);
 
         }
