@@ -57,6 +57,7 @@ public class ReadPalindrome {
 
     public static void main(String[] args) {
         ReadPalindrome palindromeReader = new ReadPalindrome();
+        palindromeReader.readOne("palindrome.plr");
         palindromeReader.read("F:\\PRM2T\\Lab4\\test");
     }
 }
