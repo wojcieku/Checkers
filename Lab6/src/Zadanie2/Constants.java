@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Constants {
 
-    List<Publication> records = new ArrayList<>(); //trzeba zmienic na Object[][] bo konstruktor tabeli tak wymaga
+    List<Publication> records = new ArrayList<>();
     Publication headers;
 
     public Publication getHeaders() {
@@ -88,16 +88,4 @@ public class Constants {
 
     }
 
-//    public static void main(String[] args) {
-//        Constants c1 = new Constants();
-//        c1.CSVtoPublications("F:\\Kuba\\Dokumenty\\studia\\PW\\semestr 2\\PRM2\\L6\\oryginal.csv");
-//        System.out.println(c1.records);
-//
-//    }
-//    public static final Object[] TABLE_HEADER = {
-//            Constants.readCSV("F:\\Kuba\\Dokumenty\\studia\\PW\\semestr 2\\PRM2\\L6\\publication_list.csv")
-//    };
-//    public static final Object[][] DATA ={
-//            Constants.readCSV("F:\\Kuba\\Dokumenty\\studia\\PW\\semestr 2\\PRM2\\L6\\publication_list.csv").toArray()
-//    };
 }
