@@ -3,6 +3,7 @@ package Zadanie2;
 
 
 import java.awt.Dimension;
+import java.awt.event.KeyListener;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -31,10 +32,13 @@ public class View {
         filterButton.addActionListener(controller);
         resetButton.addActionListener(reseter);
         table.addMouseListener(cellClicker);
+        Enter enterListner = new Enter(searchTermTextField, model, table,filterButton);
+        searchTermTextField.addKeyListener(enterListner);
 
 
         JPanel ctrlPane = new JPanel();
         JPanel displayPanel = new JPanel();
+
 
         ctrlPane.add(searchTermTextField);
         ctrlPane.add(filterButton);
@@ -53,6 +57,7 @@ public class View {
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, spl1, tableScrollPane);
         splitPane.setDividerLocation(80);
         splitPane.setEnabled(false);
+
 
 
         JFrame frame = new JFrame("PRM2T - Swing MVC");

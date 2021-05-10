@@ -19,7 +19,7 @@ public class Main {
             numF.Ok.addActionListener(e2 -> {
                 try {
                     String input = numF.typeInField.getText();
-                    Float.parseFloat(input);
+                    Double.parseDouble(input);
 
                     initF.textField.setText(input);
                     numF.dispose();
