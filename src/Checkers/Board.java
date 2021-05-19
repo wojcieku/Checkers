@@ -24,14 +24,11 @@ public class Board extends JPanel {
     public void paintComponent(Graphics g){
         Graphics2D g2 = (Graphics2D)g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setColor(Color.BLACK);
-        g.drawRect(0,0,399,399);
-        g.drawRect(1,1,397,397);
         for(int row=0;row<8;row++){
             for(int col=0;col<8;col++){
                 if(row%2==col%2) g.setColor(Color.LIGHT_GRAY);
                 else g.setColor(Color.GRAY);
-                g.fillRect(2+col*50,2+row*50,50,50);
+                g.fillRect(col*50,row*50,50,50);
                 switch(returnValurOfPiece(row,col)) {
                     case RED:
                         g.setColor(Color.RED);
