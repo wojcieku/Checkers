@@ -5,21 +5,21 @@ import java.awt.*;
 
 public class Board extends JPanel {
     static final int EMPTY = 0,RED = 1,BLACK = 2,REDKING = 3,BLACKKING=4;
-    int[][] board = new int[8][8];
+    int[][] pieces = new int[8][8];
     public void setUpPawns(){
         for(int row=0;row<8;row++){
             for(int col=0;col<8;col++){
                 if(row%2!=col%2){
-                    if(row<3) board[row][col] = BLACK;
-                    else if(row>4)board[row][col]= RED;
-                    else board[row][col] = EMPTY;
+                    if(row<3) pieces[row][col] = BLACK;
+                    else if(row>4) pieces[row][col]= RED;
+                    else pieces[row][col] = EMPTY;
                 }else
-                    board[row][col]=EMPTY;
+                    pieces[row][col]=EMPTY;
             }
         }
     }
     int returnValurOfPiece(int row,int col){
-        return board[row][col];
+        return pieces[row][col];
     }
     public void paintComponent(Graphics g){
         Graphics2D g2 = (Graphics2D)g;
