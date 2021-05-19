@@ -12,7 +12,16 @@ public class BoardController {
     class BoardListener implements MouseListener{
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println(e.getX());
+            int column = e.getX()/50;
+            int row = e.getY()/50;
+            int colorofpiece = frame.board.board[row][column];
+            switch (colorofpiece){
+                case 0:
+
+            }
+            if(frame.board.board[row+1][column+1]==0 || frame.board.board[row+1][column-1]==0){
+                System.out.println("droga wolna");
+            }
         }
 
         @Override
