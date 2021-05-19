@@ -32,11 +32,11 @@ public class Board extends JPanel {
                 switch(returnValurOfPiece(row,col)) {
                     case RED:
                         g.setColor(Color.RED);
-                        g.fillOval(10 + col * 50, 10 + row * 50, 35, 35);
+                        g.fillOval(5 + col * 50, 5 + row * 50, 40, 40);
                         break;
                     case BLACK:
                         g.setColor(Color.BLACK);
-                        g.fillOval(10 + col * 50, 10 + row * 50, 35, 35);
+                        g.fillOval(5 + col * 50, 5 + row * 50, 40, 40);
                         break;
 
                 }
