@@ -46,6 +46,30 @@ public class BoardController {
         }
         return result;
     }
+    private boolean canITake(MouseEvent e){
+        boolean result=false;
+        int column = e.getX()/50;
+        int row = e.getY()/50;
+        int colorofpiece = frame.board.pieces[row][column];
+        switch (colorofpiece){
+            case RED:
+                if(column==7){
+                    if(frame.board.pieces[row-1][column-1]==BLACK &&frame.board.pieces[row-2][column-2]==EMPTY){
+                        result=true;
+                    }
+                }
+                else if(column==0){
+                    if(frame.board.pieces[row-1][column+1]==BLACK && frame.board.pieces[row-2][column+2]==EMPTY) {
+                        result=true;
+                    }
+                }else if((frame.board.pieces[row-1][column+1]==BLACK && frame.board.pieces[row-2][column+2]==EMPTY) || (frame.board.pieces[row-1][column-1]==BLACK &&frame.board.pieces[row-2][column-2]==EMPTY)) {
+                    result=true;
+                }
+                break;
+        }
+
+        return result;
+    }
 
     static final int EMPTY = 0,RED = 1,BLACK = 2,REDKING = 3,BLACKKING=4;
     private Frame frame;
@@ -63,8 +87,12 @@ public class BoardController {
         @Override
         public void mouseClicked(MouseEvent e) {
             boolean decision;
+            boolean takeMust;
             if(firstclick){
                 decision = canIMove(e);
+                takeMust = canITake(e);
+                System.out.println(decision);
+                System.out.println(takeMust);
                 columnfirst = e.getX()/50;
                 rowfirst = e.getY()/50;
                 color = frame.board.pieces[rowfirst][columnfirst];
