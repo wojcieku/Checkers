@@ -14,5 +14,25 @@ public class Frame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.add(board);
     }
+    public void isGameFinished () {
+        int sumOfReds = 0;
+        int sumofBlacks = 0;
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                if (board.pieces[row][col] == Board.RED) {
+                    sumOfReds ++;
+                } else if (board.pieces[row][col] == Board.BLACK) {
+                    sumofBlacks ++;
+                }
+            }
+        }
+        System.out.println("Liczba czarnych: " + sumofBlacks);
+        System.out.println("Liczba czerwonych: " + sumOfReds);
+        if (sumOfReds <= 0) {
+            JOptionPane.showMessageDialog(this,"Czarny zwyciężył!");
+        } else if (sumofBlacks <= 0) {
+            JOptionPane.showMessageDialog(this,"czerwony zwyciężył!");
+        }
+    }
 
 }

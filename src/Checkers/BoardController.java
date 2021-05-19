@@ -76,8 +76,9 @@ public class BoardController {
                 frame.board.pieces[rowsecond][columnsecond] = color;
                 frame.board.pieces[rowfirst][columnfirst]=EMPTY;
                 frame.board.repaint();
-
+                frame.isGameFinished();
             }
+
         }
 
         @Override
