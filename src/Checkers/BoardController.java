@@ -66,6 +66,21 @@ public class BoardController {
                     result=true;
                 }
                 break;
+            case BLACK:
+                if(column==7){
+                    if(frame.board.pieces[row+1][column-1]==RED &&frame.board.pieces[row+2][column-2]==EMPTY) {
+                        result=true;
+                    }
+                }
+                else if(column==0){
+                    if(frame.board.pieces[row+1][column+1]==RED && frame.board.pieces[row+2][column+2]==EMPTY) {
+                        result=true;
+                    }
+                }else{
+                    if((frame.board.pieces[row+1][column+1]==RED && frame.board.pieces[row+2][column+2]==EMPTY) || (frame.board.pieces[row+1][column-1]==RED &&frame.board.pieces[row+2][column-2]==EMPTY)) {
+                        result=true;
+                    }
+                }
         }
 
         return result;
@@ -91,8 +106,8 @@ public class BoardController {
             if(firstclick){
                 decision = canIMove(e);
                 takeMust = canITake(e);
-                System.out.println(decision);
-                System.out.println(takeMust);
+                System.out.println("Can I move: " + decision);
+                System.out.println("Can I take: " + takeMust);
                 columnfirst = e.getX()/50;
                 rowfirst = e.getY()/50;
                 color = frame.board.pieces[rowfirst][columnfirst];
