@@ -3,7 +3,8 @@ package Checkers;
 public class Game {
     public static void main(String[] args) {
         Frame frame = new Frame();
-        BoardController controller = new BoardController(frame);
+        Move move = new Move(frame);
+        BoardController controller = new BoardController(frame,move);
         frame.setVisible(true);
     }
 }

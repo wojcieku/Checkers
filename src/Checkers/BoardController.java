@@ -88,8 +88,10 @@ public class BoardController {
 
     static final int EMPTY = 0,RED = 1,BLACK = 2,REDKING = 3,BLACKKING=4;
     private Frame frame;
-    public BoardController(Frame frame){
+    private Move move;
+    public BoardController(Frame frame,Move move){
         this.frame = frame;
+        this.move = move;
         this.frame.addBoardListener(new BoardListener());
     }
     class BoardListener implements MouseListener{
@@ -111,19 +113,23 @@ public class BoardController {
 //                System.out.println("Can I take: " + takeMust);
                 columnfirst = e.getX()/50;
                 rowfirst = e.getY()/50;
-                if(frame.board.pieces[rowfirst][columnfirst]!=EMPTY){
+                if(frame.board.pieces[rowfirst][columnfirst]!=EMPTY && move.canIMove(columnfirst,rowfirst)) {
                     color1 = frame.board.pieces[rowfirst][columnfirst];
+                    firstclick = !firstclick;
                 }
-                firstclick=!firstclick;
             }else{
-                firstclick=!firstclick;
+
                 columnsecond = e.getX()/50;
                 rowsecond = e.getY()/50;
-                if((columnfirst!=columnsecond &&rowfirst!=rowsecond)&&frame.board.pieces[rowsecond][columnsecond]==EMPTY) {
-                    frame.board.pieces[rowfirst][columnfirst] = EMPTY;
-                    frame.board.pieces[rowsecond][columnsecond] = color1;
-                    frame.board.repaint();
-                    frame.isGameFinished();
+                int color2= frame.board.pieces[rowsecond][columnsecond];
+                if(move.secondClickmove(columnsecond,rowsecond,columnfirst,rowfirst,color1)) {
+                    if (frame.board.pieces[rowsecond][columnsecond] == EMPTY) {
+                        frame.board.pieces[rowfirst][columnfirst] = EMPTY;
+                        frame.board.pieces[rowsecond][columnsecond] = color1;
+                        frame.board.repaint();
+                        frame.isGameFinished();
+                        firstclick = !firstclick;
+                    }
                 }
             }
 
