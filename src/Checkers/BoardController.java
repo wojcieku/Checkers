@@ -47,7 +47,7 @@ public class BoardController {
         return result;
     }
     private boolean canITake(MouseEvent e){
-        boolean result=false;
+        boolean result=false;  //musi byc jeszcze dla kolumn od prawej i od lewej oddzielny przypadek bo wychodzi poza plansze
         int column = e.getX()/50;
         int row = e.getY()/50;
         int colorofpiece = frame.board.pieces[row][column];
@@ -98,31 +98,37 @@ public class BoardController {
         int rowfirst=8;
         int columnsecond;
         int rowsecond;
-        int color;
+        int color1;
+
         @Override
         public void mouseClicked(MouseEvent e) {
             boolean decision;
             boolean takeMust;
             if(firstclick){
-                decision = canIMove(e);
-                takeMust = canITake(e);
-                System.out.println("Can I move: " + decision);
-                System.out.println("Can I take: " + takeMust);
+//                decision = canIMove(e);
+//                takeMust = canITake(e);
+//                System.out.println("Can I move: " + decision);
+//                System.out.println("Can I take: " + takeMust);
                 columnfirst = e.getX()/50;
                 rowfirst = e.getY()/50;
-                color = frame.board.pieces[rowfirst][columnfirst];
+                if(frame.board.pieces[rowfirst][columnfirst]!=EMPTY){
+                    color1 = frame.board.pieces[rowfirst][columnfirst];
+                }
                 firstclick=!firstclick;
             }else{
                 firstclick=!firstclick;
                 columnsecond = e.getX()/50;
                 rowsecond = e.getY()/50;
-                frame.board.pieces[rowsecond][columnsecond] = color;
-                frame.board.pieces[rowfirst][columnfirst]=EMPTY;
-                frame.board.repaint();
-                frame.isGameFinished();
+                if((columnfirst!=columnsecond &&rowfirst!=rowsecond)&&frame.board.pieces[rowsecond][columnsecond]==EMPTY) {
+                    frame.board.pieces[rowfirst][columnfirst] = EMPTY;
+                    frame.board.pieces[rowsecond][columnsecond] = color1;
+                    frame.board.repaint();
+                    frame.isGameFinished();
+                }
             }
 
         }
+
 
         @Override
         public void mousePressed(MouseEvent e) {
