@@ -50,12 +50,12 @@ public class Move {
         int colorofpiece = frame.board.pieces[row][column];
         switch (colorofpiece){
             case Board.RED:
-                if(column==7){
+                if(column==7 || column == 6){
                     if(frame.board.pieces[row-1][column-1]==Board.BLACK &&frame.board.pieces[row-2][column-2]==Board.EMPTY){
                         result=true;
                     }
                 }
-                else if(column==0){
+                else if(column==0 || column == 1){
                     if(frame.board.pieces[row-1][column+1]==Board.BLACK && frame.board.pieces[row-2][column+2]==Board.EMPTY) {
                         result=true;
                     }
@@ -64,12 +64,12 @@ public class Move {
                 }
                 break;
             case Board.BLACK:
-                if(column==7){
+                if(column==7 || column == 6){
                     if(frame.board.pieces[row+1][column-1]==Board.RED &&frame.board.pieces[row+2][column-2]==Board.EMPTY) {
                         result=true;
                     }
                 }
-                else if(column==0){
+                else if(column==0 || column == 1){
                     if(frame.board.pieces[row+1][column+1]==Board.RED && frame.board.pieces[row+2][column+2]==Board.EMPTY) {
                         result=true;
                     }
