@@ -53,12 +53,21 @@ public class BoardController {
 
                 if(frame.board.pieces[rowfirst][columnfirst]!=Board.EMPTY && move.canIMove(columnfirst,rowfirst)) {
                     if(frame.board.pieces[rowfirst][columnfirst]==getCurrentColor()){
+                        if(!move.checkAllPiecesPossibleTakes()) {
                             frame.board.setSelectedColumn(columnfirst);
                             frame.board.setSelectedRow(rowfirst);
                             frame.board.repaint();
                             color1 = frame.board.pieces[rowfirst][columnfirst];
                             firstclick = !firstclick;
-
+                        }else{
+                            if(move.canITake(columnfirst,rowfirst)){
+                                frame.board.setSelectedColumn(columnfirst);
+                                frame.board.setSelectedRow(rowfirst);
+                                frame.board.repaint();
+                                color1 = frame.board.pieces[rowfirst][columnfirst];
+                                firstclick = !firstclick;
+                            }
+                        }
                     }
                 }
             }else{
@@ -73,7 +82,6 @@ public class BoardController {
                         frame.board.pieces[rowsecond][columnsecond] = color1;
                         setCurrentColor();
                         frame.isGameFinished();
-
                     }
                 }
                 else{

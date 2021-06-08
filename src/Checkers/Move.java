@@ -7,6 +7,15 @@ public class Move {
     public Move(Frame frame){
         this.frame = frame;
     }
+    public boolean checkAllPiecesPossibleTakes(){
+        boolean result = false;
+        for(int row=0;row<8;row++){
+            for(int col=0;col<8;col++){
+                if(canITake(col,row)) result=true;
+            }
+        }
+        return result;
+    }
     public boolean canIMove(int column, int row){
         boolean result=false;
         int colorofpiece = frame.board.pieces[row][column];
