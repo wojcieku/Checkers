@@ -26,6 +26,13 @@ public class BoardController {
         this.move = move;
         this.frame.addBoardListener(new BoardListener());
     }
+    public void take(int firstRow, int firstColumn, int secondRow, int secondColumn, int currentColor){
+        frame.board.pieces[firstRow][firstColumn] = Board.EMPTY;
+        frame.board.pieces[secondRow][secondColumn] = currentColor;
+        int rowBetween = (firstRow+secondRow)/2;
+        int colBetween = (firstColumn+secondColumn)/2;
+        frame.board.pieces[rowBetween][colBetween] = Board.EMPTY;
+    }
     class BoardListener implements MouseListener{
         public boolean firstclick = true;
         int columnfirst=8;
