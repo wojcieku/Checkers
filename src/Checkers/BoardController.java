@@ -53,7 +53,6 @@ public class BoardController {
 
                 if(frame.board.pieces[rowfirst][columnfirst]!=Board.EMPTY && move.canIMove(columnfirst,rowfirst)) {
                     if(frame.board.pieces[rowfirst][columnfirst]==getCurrentColor()){
-                            setCurrentColor();
                             frame.board.setSelectedColumn(columnfirst);
                             frame.board.setSelectedRow(rowfirst);
                             frame.board.repaint();
@@ -72,12 +71,17 @@ public class BoardController {
                     if (frame.board.pieces[rowsecond][columnsecond] == Board.EMPTY) {
                         frame.board.pieces[rowfirst][columnfirst] = Board.EMPTY;
                         frame.board.pieces[rowsecond][columnsecond] = color1;
-                        frame.board.repaint();
+                        setCurrentColor();
                         frame.isGameFinished();
-                        firstclick = !firstclick;
+
                     }
                 }
-
+                else{
+                    frame.board.setSelectedColumn(8);
+                    frame.board.setSelectedRow(8);
+                }
+                frame.board.repaint();
+                firstclick = !firstclick;
             }
 
         }
