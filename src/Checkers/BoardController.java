@@ -1,6 +1,5 @@
 package Checkers;
 
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -29,16 +28,16 @@ public class BoardController {
     public void take(int firstRow, int firstColumn, int secondRow, int secondColumn, int currentColor){
         frame.board.pieces[firstRow][firstColumn] = Board.EMPTY;
         frame.board.pieces[secondRow][secondColumn] = currentColor;
-        int rowBetween = (firstRow+secondRow)/2;
-        int colBetween = (firstColumn+secondColumn)/2;
+        int rowBetween = (firstRow+secondRow) / 2;
+        int colBetween = (firstColumn+secondColumn) / 2;
         frame.board.pieces[rowBetween][colBetween] = Board.EMPTY;
     }
     class BoardListener implements MouseListener{
-        public boolean firstclick = true;
-        int columnfirst=8;
-        int rowfirst=8;
-        int columnsecond;
-        int rowsecond;
+        public boolean firstClick = true;
+        int columnFirst =8;
+        int rowFirst =8;
+        int columnSecond;
+        int rowSecond;
         int color1;
 
         @Override
@@ -54,25 +53,25 @@ public class BoardController {
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            if(firstclick){
-                columnfirst = e.getX()/50;
-                rowfirst = e.getY()/50;
+            if(firstClick){
+                columnFirst = e.getX()/50;
+                rowFirst = e.getY()/50;
 
-                if(frame.board.pieces[rowfirst][columnfirst]!=Board.EMPTY && move.canIMove(columnfirst,rowfirst)) {
-                    if(frame.board.pieces[rowfirst][columnfirst]==getCurrentColor()){
+                if(frame.board.pieces[rowFirst][columnFirst] != Board.EMPTY && move.canIMove(columnFirst, rowFirst)) {
+                    if(frame.board.pieces[rowFirst][columnFirst] == getCurrentColor()){
                         if(!move.checkAllPiecesPossibleTakes()) {
-                            frame.board.setSelectedColumn(columnfirst);
-                            frame.board.setSelectedRow(rowfirst);
+                            frame.board.setSelectedColumn(columnFirst);
+                            frame.board.setSelectedRow(rowFirst);
                             frame.board.repaint();
-                            color1 = frame.board.pieces[rowfirst][columnfirst];
-                            firstclick = !firstclick;
+                            color1 = frame.board.pieces[rowFirst][columnFirst];
+                            firstClick =! firstClick;
                         }else{
-                            if(move.canITake(columnfirst,rowfirst)){
-                                frame.board.setSelectedColumn(columnfirst);
-                                frame.board.setSelectedRow(rowfirst);
+                            if(move.canITake(columnFirst, rowFirst)){
+                                frame.board.setSelectedColumn(columnFirst);
+                                frame.board.setSelectedRow(rowFirst);
                                 frame.board.repaint();
-                                color1 = frame.board.pieces[rowfirst][columnfirst];
-                                firstclick = !firstclick;
+                                color1 = frame.board.pieces[rowFirst][columnFirst];
+                                firstClick =! firstClick;
                             }
                         }
                     }
@@ -80,13 +79,13 @@ public class BoardController {
             }else{
                 frame.board.setSelectedColumn(8);
                 frame.board.setSelectedRow(8);
-                columnsecond = e.getX()/50;
-                rowsecond = e.getY()/50;
-                int color2= frame.board.pieces[rowsecond][columnsecond];
-                if(move.secondClickmove(columnsecond,rowsecond,columnfirst,rowfirst,color1)) {
-                    if (frame.board.pieces[rowsecond][columnsecond] == Board.EMPTY) {
-                        frame.board.pieces[rowfirst][columnfirst] = Board.EMPTY;
-                        frame.board.pieces[rowsecond][columnsecond] = color1;
+                columnSecond = e.getX()/50;
+                rowSecond = e.getY()/50;
+                int color2= frame.board.pieces[rowSecond][columnSecond];
+                if(move.secondClickmove(columnSecond, rowSecond, columnFirst, rowFirst,color1)) {
+                    if (frame.board.pieces[rowSecond][columnSecond] == Board.EMPTY) {
+                        frame.board.pieces[rowFirst][columnFirst] = Board.EMPTY;
+                        frame.board.pieces[rowSecond][columnSecond] = color1;
                         setCurrentColor();
                         frame.isGameFinished();
                     }
@@ -96,9 +95,9 @@ public class BoardController {
                     frame.board.setSelectedRow(8);
                 }
                 frame.board.repaint();
-                firstclick = !firstclick;
+                firstClick =! firstClick;
             }
-
+            frame.makeAQueen(rowFirst, columnFirst, rowSecond, columnSecond);
         }
 
         @Override
