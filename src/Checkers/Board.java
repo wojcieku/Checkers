@@ -18,7 +18,22 @@ public class Board extends JPanel {
             }
         }
     }
-    int returnValurOfPiece(int row,int col){
+    int selectedRow=8;
+    int selectedColumn=8;
+    public void setSelectedRow(int selectedRow) {
+        this.selectedRow = selectedRow;
+    }
+    public void setSelectedColumn(int selectedColumn) {
+        this.selectedColumn = selectedColumn;
+    }
+    public int getSelectedRow() {
+        return selectedRow;
+    }
+    public int getSelectedColumn() {
+        return selectedColumn;
+    }
+
+    int getValueOfPiece(int row, int col){
         return pieces[row][col];
     }
     public void paintComponent(Graphics g){
@@ -26,10 +41,14 @@ public class Board extends JPanel {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
         for(int row=0;row<8;row++){
             for(int col=0;col<8;col++){
-                if(row%2==col%2) g.setColor(Color.LIGHT_GRAY);
-                else g.setColor(Color.GRAY);
+                if(col==getSelectedColumn() && row==getSelectedRow()){
+                    g.setColor(Color.DARK_GRAY);
+                }else {
+                    if (row % 2 == col % 2) g.setColor(Color.LIGHT_GRAY);
+                    else g.setColor(Color.GRAY);
+                }
                 g.fillRect(col*50,row*50,50,50);
-                switch(returnValurOfPiece(row,col)) {
+                switch(getValueOfPiece(row,col)) {
                     case RED:
                         g.setColor(Color.RED);
                         g.fillOval(5 + col * 50, 5 + row * 50, 40, 40);
