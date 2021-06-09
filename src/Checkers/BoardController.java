@@ -1,6 +1,5 @@
 package Checkers;
 
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -9,6 +8,11 @@ public class BoardController {
     private Frame frame;
     private Move move;
     private int currentColor = Board.RED;
+    public void clearChosenTile(){
+        frame.board.setSelectedColumn(8);
+        frame.board.setSelectedRow(8);
+        frame.repaint();
+    }
     public void setCurrentColor(){
         if(currentColor==Board.RED){
             this.currentColor=Board.BLACK;
@@ -35,11 +39,11 @@ public class BoardController {
     }
     class BoardListener implements MouseListener{
         public boolean firstclick = true;
-        int columnfirst=8;
-        int rowfirst=8;
+        int firstClickColumnNumber = 8;
+        int firstClickRowNumber = 8;
         int columnsecond;
         int rowsecond;
-        int color1;
+        int colorOfFirstClick;
 
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -55,50 +59,40 @@ public class BoardController {
         @Override
         public void mouseReleased(MouseEvent e) {
             if(firstclick){
-                columnfirst = e.getX()/50;
-                rowfirst = e.getY()/50;
-
-                if(frame.board.pieces[rowfirst][columnfirst]!=Board.EMPTY && move.canIMove(columnfirst,rowfirst)) {
-                    if(frame.board.pieces[rowfirst][columnfirst]==getCurrentColor()){
-                        if(!move.checkAllPiecesPossibleTakes()) {
-                            frame.board.setSelectedColumn(columnfirst);
-                            frame.board.setSelectedRow(rowfirst);
+                firstClickColumnNumber = e.getX()/50;
+                firstClickRowNumber = e.getY()/50;
+                if(frame.board.getValueOfPiece(firstClickRowNumber,firstClickColumnNumber)!=Board.EMPTY && (move.canIMove(firstClickColumnNumber, firstClickRowNumber) || move.canITake(firstClickColumnNumber,firstClickRowNumber))) {
+                    if(frame.board.getValueOfPiece(firstClickRowNumber,firstClickColumnNumber)==getCurrentColor()){
+                            frame.board.setSelectedColumn(firstClickColumnNumber);
+                            frame.board.setSelectedRow(firstClickRowNumber);
                             frame.board.repaint();
-                            color1 = frame.board.pieces[rowfirst][columnfirst];
+                            colorOfFirstClick = frame.board.getValueOfPiece(firstClickRowNumber,firstClickColumnNumber);
                             firstclick = !firstclick;
-                        }else{
-                            if(move.canITake(columnfirst,rowfirst)){
-                                frame.board.setSelectedColumn(columnfirst);
-                                frame.board.setSelectedRow(rowfirst);
-                                frame.board.repaint();
-                                color1 = frame.board.pieces[rowfirst][columnfirst];
-                                firstclick = !firstclick;
-                            }
+                    }
+                }
+            }else {
+                clearChosenTile();
+                columnsecond = e.getX() / 50;
+                rowsecond = e.getY() / 50;
+                if (!move.checkAllPiecesPossibleTakes(getCurrentColor())) {
+                    if (move.isItLegalSecondClickMove(columnsecond, rowsecond, firstClickColumnNumber, firstClickRowNumber, colorOfFirstClick)) {
+                        if (frame.board.pieces[rowsecond][columnsecond] == Board.EMPTY) {
+                            frame.board.setValueOfPiece(firstClickRowNumber,firstClickColumnNumber,Board.EMPTY);
+                            frame.board.setValueOfPiece(rowsecond,columnsecond,colorOfFirstClick);
+                            setCurrentColor();
                         }
                     }
-                }
-            }else{
-                frame.board.setSelectedColumn(8);
-                frame.board.setSelectedRow(8);
-                columnsecond = e.getX()/50;
-                rowsecond = e.getY()/50;
-                int color2= frame.board.pieces[rowsecond][columnsecond];
-                if(move.secondClickmove(columnsecond,rowsecond,columnfirst,rowfirst,color1)) {
-                    if (frame.board.pieces[rowsecond][columnsecond] == Board.EMPTY) {
-                        frame.board.pieces[rowfirst][columnfirst] = Board.EMPTY;
-                        frame.board.pieces[rowsecond][columnsecond] = color1;
+                }else{
+                    if(move.legalTakeMove(columnsecond, rowsecond, firstClickColumnNumber, firstClickRowNumber, colorOfFirstClick)){
+                        take(firstClickRowNumber,firstClickColumnNumber,rowsecond,columnsecond,getCurrentColor());
                         setCurrentColor();
-                        frame.isGameFinished();
                     }
-                }
-                else{
-                    frame.board.setSelectedColumn(8);
-                    frame.board.setSelectedRow(8);
-                }
-                frame.board.repaint();
-                firstclick = !firstclick;
-            }
 
+                }
+                frame.isGameFinished();
+                firstclick = !firstclick;
+                frame.board.repaint();
+            }
         }
 
         @Override

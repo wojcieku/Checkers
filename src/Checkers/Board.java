@@ -36,6 +36,9 @@ public class Board extends JPanel {
     int getValueOfPiece(int row, int col){
         return pieces[row][col];
     }
+    public void setValueOfPiece(int row,int col,int color){
+        this.pieces[row][col]=color;
+    }
     public void paintComponent(Graphics g){
         Graphics2D g2 = (Graphics2D)g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
