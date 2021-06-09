@@ -14,6 +14,15 @@ public class Frame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.add(board);
     }
+
+    public void makeAQueen (int rowFirst, int columnFirst, int rowSecond, int columnSecond) {
+        if (board.pieces[rowFirst][columnFirst] == Board.RED && rowSecond == 0) {
+            board.pieces[rowSecond][columnFirst] = Board.REDKING;
+        } else if (board.pieces[rowFirst][columnFirst] == Board.BLACK && rowSecond == 7) {
+            board.pieces[rowSecond][columnSecond] = Board.BLACKKING;
+        }
+    }
+
     public void isGameFinished () {
         int sumOfReds = 0;
         int sumofBlacks = 0;
