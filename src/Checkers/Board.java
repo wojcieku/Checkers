@@ -60,7 +60,18 @@ public class Board extends JPanel {
                         g.setColor(Color.BLACK);
                         g.fillOval(5 + col * 50, 5 + row * 50, 40, 40);
                         break;
-
+                    case REDKING:
+                        g.setColor(Color.RED);
+                        g.fillOval(5 + col * 50, 5 + row * 50, 40, 40);
+                        g.setColor(Color.WHITE);
+                        g.drawOval(15 + col * 50, 15 + row * 50, 20, 20);
+                        break;
+                    case BLACKKING:
+                        g.setColor(Color.BLACK);
+                        g.fillOval(5 + col * 50, 5 + row * 50, 40, 40);
+                        g.setColor(Color.WHITE);
+                        g.drawOval(15 + col * 50, 15 + row * 50, 20, 20);
+                        break;
                 }
             }
         }

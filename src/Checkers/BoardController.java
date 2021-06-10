@@ -8,6 +8,18 @@ public class BoardController {
     private Frame frame;
     private Move move;
     private int currentColor = Board.RED;
+    private int currentColorKing = Board.REDKING;
+    public void setCurrentColorKing(){
+        if(this.currentColorKing==Board.REDKING){
+            this.currentColorKing=Board.BLACKKING;
+        }else{
+            this.currentColorKing=Board.REDKING;
+        }
+    }
+    public int getCurrentColorKing() {
+        return currentColorKing;
+    }
+
     public void clearChosenTile(){
         frame.board.setSelectedColumn(8);
         frame.board.setSelectedRow(8);
@@ -61,8 +73,9 @@ public class BoardController {
             if(firstclick){
                 firstClickColumnNumber = e.getX()/50;
                 firstClickRowNumber = e.getY()/50;
-                if(frame.board.getValueOfPiece(firstClickRowNumber,firstClickColumnNumber)!=Board.EMPTY && (move.canIMove(firstClickColumnNumber, firstClickRowNumber) || move.canITake(firstClickColumnNumber,firstClickRowNumber))) {
-                    if(frame.board.getValueOfPiece(firstClickRowNumber,firstClickColumnNumber)==getCurrentColor()){
+                if(move.canIMove(firstClickColumnNumber, firstClickRowNumber) || move.canITake(firstClickColumnNumber,firstClickRowNumber)) {
+                    if(frame.board.getValueOfPiece(firstClickRowNumber,firstClickColumnNumber)==getCurrentColor() ||
+                            frame.board.getValueOfPiece(firstClickRowNumber,firstClickColumnNumber)==getCurrentColorKing()){
                             frame.board.setSelectedColumn(firstClickColumnNumber);
                             frame.board.setSelectedRow(firstClickRowNumber);
                             frame.board.repaint();
@@ -76,16 +89,32 @@ public class BoardController {
                 rowsecond = e.getY() / 50;
                 if (!move.checkAllPiecesPossibleTakes(getCurrentColor())) {
                     if (move.isItLegalSecondClickMove(columnsecond, rowsecond, firstClickColumnNumber, firstClickRowNumber, colorOfFirstClick)) {
-                        if (frame.board.pieces[rowsecond][columnsecond] == Board.EMPTY) {
+                        if (frame.board.getValueOfPiece(rowsecond,columnsecond) == Board.EMPTY) {
                             frame.board.setValueOfPiece(firstClickRowNumber,firstClickColumnNumber,Board.EMPTY);
                             frame.board.setValueOfPiece(rowsecond,columnsecond,colorOfFirstClick);
+                            if(colorOfFirstClick==Board.RED && rowsecond==0){
+                                frame.board.setValueOfPiece(rowsecond,columnsecond,Board.REDKING);
+                            }
+                            if(colorOfFirstClick==Board.BLACK && rowsecond==7){
+                                frame.board.setValueOfPiece(rowsecond,columnsecond,Board.BLACKKING);
+                            }
                             setCurrentColor();
+                            setCurrentColorKing();
                         }
                     }
                 }else{
                     if(move.legalTakeMove(columnsecond, rowsecond, firstClickColumnNumber, firstClickRowNumber, colorOfFirstClick)){
                         take(firstClickRowNumber,firstClickColumnNumber,rowsecond,columnsecond,getCurrentColor());
-                        setCurrentColor();
+                        if(!move.checkAllPiecesPossibleTakes(getCurrentColor())) {
+                            setCurrentColor();
+                            setCurrentColorKing();
+                        }
+                        if(colorOfFirstClick==Board.RED && rowsecond==0){
+                            frame.board.setValueOfPiece(rowsecond,columnsecond,Board.REDKING);
+                        }
+                        if(colorOfFirstClick==Board.BLACK && rowsecond==7){
+                            frame.board.setValueOfPiece(rowsecond,columnsecond,Board.BLACKKING);
+                        }
                     }
 
                 }
