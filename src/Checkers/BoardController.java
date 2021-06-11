@@ -4,11 +4,16 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class BoardController {
-
+    public int botsColor;
+    public int botsKingColor;
+    public int playersColor;
+    public int playersKingColor;
     private Frame frame;
     private Move move;
+    private Bot bot;
     private int currentColor = Board.RED;
     private int currentColorKing = Board.REDKING;
+
     public void setCurrentColorKing(){
         if(this.currentColorKing==Board.REDKING){
             this.currentColorKing=Board.BLACKKING;
@@ -30,6 +35,9 @@ public class BoardController {
             this.currentColor=Board.BLACK;
         }else{
             this.currentColor=Board.RED;
+        }
+        if(currentColor == botsColor){
+            //bot oblicza, wykonuje ruch poprzez klikniecie
         }
     }
 
