@@ -7,8 +7,10 @@ public class BoardController {
 
     private Frame frame;
     private Move move;
+    private Bot bot;
     private int currentColor = Board.RED;
     private int currentColorKing = Board.REDKING;
+
     public void setCurrentColorKing(){
         if(this.currentColorKing==Board.REDKING){
             this.currentColorKing=Board.BLACKKING;
