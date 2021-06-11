@@ -1,7 +1,13 @@
 package Checkers;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class Game {
     public static void main(String[] args) {
+        int playersColor;
+        //int botsColor;
         Frame frame = new Frame();
         Move move = new Move(frame);
         BoardController controller = new BoardController(frame,move);
