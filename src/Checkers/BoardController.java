@@ -49,6 +49,20 @@ public class BoardController {
         int colBetween = (firstColumn+secondColumn)/2;
         frame.board.pieces[rowBetween][colBetween] = Board.EMPTY;
     }
+    public void queenTake(int firstRow, int firstColumn, int secondRow, int secondColumn, int currentColor){
+        frame.board.setValueOfPiece(firstRow,firstColumn,Board.EMPTY);
+        frame.board.setValueOfPiece(secondRow,secondColumn,currentColor);
+        if(secondRow<firstRow && secondColumn<firstColumn){
+            frame.board.setValueOfPiece(secondRow+1,secondColumn+1,Board.EMPTY);
+        }
+
+        if(secondRow>firstRow && secondColumn<firstColumn)
+            frame.board.setValueOfPiece(secondRow-1,secondColumn+1,Board.EMPTY);
+        if(secondRow<firstRow && secondColumn>firstColumn)
+            frame.board.setValueOfPiece(secondRow+1,secondColumn-1,Board.EMPTY);
+        if(secondRow>firstRow && secondColumn>firstColumn)
+            frame.board.setValueOfPiece(secondRow-1,secondColumn-1,Board.EMPTY);
+    }
     class BoardListener implements MouseListener{
         public boolean firstclick = true;
         int firstClickColumnNumber = 8;
@@ -87,7 +101,7 @@ public class BoardController {
                 clearChosenTile();
                 columnsecond = e.getX() / 50;
                 rowsecond = e.getY() / 50;
-                if (!move.checkAllPiecesPossibleTakes(getCurrentColor())) {
+                if (!move.checkAllPiecesPossibleTakes(getCurrentColor(),getCurrentColorKing())) {
                     if (move.isItLegalSecondClickMove(columnsecond, rowsecond, firstClickColumnNumber, firstClickRowNumber, colorOfFirstClick)) {
                         if (frame.board.getValueOfPiece(rowsecond,columnsecond) == Board.EMPTY) {
                             frame.board.setValueOfPiece(firstClickRowNumber,firstClickColumnNumber,Board.EMPTY);
@@ -103,9 +117,14 @@ public class BoardController {
                         }
                     }
                 }else{
+                    System.out.println("essa");
                     if(move.legalTakeMove(columnsecond, rowsecond, firstClickColumnNumber, firstClickRowNumber, colorOfFirstClick)){
+                        System.out.println("essa2");
+                        if(colorOfFirstClick==Board.BLACK || colorOfFirstClick==Board.RED)
                         take(firstClickRowNumber,firstClickColumnNumber,rowsecond,columnsecond,getCurrentColor());
-                        if(!move.checkAllPiecesPossibleTakes(getCurrentColor())) {
+                        else
+                            queenTake(firstClickRowNumber,firstClickColumnNumber,rowsecond,columnsecond,getCurrentColorKing());
+                        if(!move.checkAllPiecesPossibleTakes(getCurrentColor(),getCurrentColorKing())) {
                             setCurrentColor();
                             setCurrentColorKing();
                         }
