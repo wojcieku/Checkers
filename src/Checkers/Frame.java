@@ -28,9 +28,9 @@ public class Frame extends JFrame {
         int sumofBlacks = 0;
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                if (board.pieces[row][col] == Board.RED) {
+                if (board.pieces[row][col] == Board.RED || board.pieces[row][col] == Board.REDKING) {
                     sumOfReds ++;
-                } else if (board.pieces[row][col] == Board.BLACK) {
+                } else if (board.pieces[row][col] == Board.BLACK || board.pieces[row][col] == Board.BLACKKING) {
                     sumofBlacks ++;
                 }
             }
