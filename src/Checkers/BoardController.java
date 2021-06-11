@@ -117,9 +117,7 @@ public class BoardController {
                         }
                     }
                 }else{
-                    System.out.println("essa");
                     if(move.legalTakeMove(columnsecond, rowsecond, firstClickColumnNumber, firstClickRowNumber, colorOfFirstClick)){
-                        System.out.println("essa2");
                         if(colorOfFirstClick==Board.BLACK || colorOfFirstClick==Board.RED)
                         take(firstClickRowNumber,firstClickColumnNumber,rowsecond,columnsecond,getCurrentColor());
                         else
