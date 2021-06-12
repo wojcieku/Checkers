@@ -10,7 +10,7 @@ public class BoardController {
     public int playersKingColor;
     private Frame frame;
     private Move move;
-    private Bot bot;
+    private Bot bot; //dodac do konstruktora
     private int currentColor = Board.RED;
     private int currentColorKing = Board.REDKING;
 
