@@ -78,7 +78,9 @@ public class BoardController {
         int columnsecond;
         int rowsecond;
         int colorOfFirstClick;
-
+        int rowchaintake=8;
+        int columnchaintake=8;
+        boolean chaintake=false;
         @Override
         public void mouseClicked(MouseEvent e) {
 
@@ -102,7 +104,15 @@ public class BoardController {
                             frame.board.setSelectedRow(firstClickRowNumber);
                             frame.board.repaint();
                             colorOfFirstClick = frame.board.getValueOfPiece(firstClickRowNumber,firstClickColumnNumber);
-                            firstclick = !firstclick;
+                            if(chaintake) {
+                                if(rowchaintake==firstClickRowNumber && columnchaintake==firstClickColumnNumber) {
+                                    firstclick = !firstclick;
+                                }else{
+                                    clearChosenTile();
+                                }
+                            }else{
+                                firstclick=!firstclick;
+                            }
                     }
                 }
             }else {
@@ -130,9 +140,14 @@ public class BoardController {
                         take(firstClickRowNumber,firstClickColumnNumber,rowsecond,columnsecond,getCurrentColor());
                         else
                             queenTake(firstClickRowNumber,firstClickColumnNumber,rowsecond,columnsecond,getCurrentColorKing());
-                        if(!move.checkAllPiecesPossibleTakes(getCurrentColor(),getCurrentColorKing())) {
+                        if(!move.canITake(columnsecond,rowsecond)) {
+                            chaintake=false;
                             setCurrentColor();
                             setCurrentColorKing();
+                        }else{
+                            chaintake=true;
+                            columnchaintake=columnsecond;
+                            rowchaintake=rowsecond;
                         }
                         if(colorOfFirstClick==Board.RED && rowsecond==0){
                             frame.board.setValueOfPiece(rowsecond,columnsecond,Board.REDKING);
