@@ -51,7 +51,7 @@ public class Move {
                 if(Math.abs(rowsecond-columnsecond)==Math.abs(rowfirst-columnfirst) || rowfirst+columnfirst == columnsecond+rowsecond) {
                     if(frame.board.getValueOfPiece(rowsecond,columnsecond)==Board.EMPTY) {
                         if (rowsecond < rowfirst && columnsecond < columnfirst) {
-                            for (i = rowfirst - 1, j = columnfirst - 1; i >= rowsecond + 1 && j >= columnsecond + 1; i--, j--) {
+                            for (i = rowfirst - 1, j = columnfirst - 1; i > rowsecond + 1 && j > columnsecond + 1; i--, j--) {
                                 if (frame.board.getValueOfPiece(i, j) != Board.EMPTY) result = false;
                             }
                             if (!(frame.board.getValueOfPiece(rowsecond + 1, columnsecond + 1) == Board.RED ||
@@ -68,7 +68,7 @@ public class Move {
                                 result = false;
                         }
                         if (rowsecond < rowfirst && columnsecond > columnfirst) {
-                            for (i = rowfirst - 1, j = columnfirst + 1; i >= rowsecond + 1 && j <= columnsecond - 1; i--, j++) {
+                            for (i = rowfirst - 1, j = columnfirst + 1; i > rowsecond + 1 && j < columnsecond - 1; i--, j++) {
                                 if (frame.board.getValueOfPiece(i, j) != Board.EMPTY) result = false;
                             }
                             if (!(frame.board.getValueOfPiece(rowsecond + 1, columnsecond - 1) == Board.RED ||
@@ -76,7 +76,7 @@ public class Move {
                                 result = false;
                         }
                         if (rowsecond > rowfirst && columnsecond > columnfirst) {
-                            for (i = rowfirst + 1, j = columnfirst + 1; i <= rowsecond - 1 && j <= columnsecond - 1; i++, j++) {
+                            for (i = rowfirst + 1, j = columnfirst + 1; i < rowsecond - 1 && j < columnsecond - 1; i++, j++) {
                                 if (frame.board.getValueOfPiece(i, j) != Board.EMPTY) result = false;
                             }
                             if (!(frame.board.getValueOfPiece(rowsecond - 1, columnsecond - 1) == Board.RED ||
@@ -191,6 +191,7 @@ public class Move {
                 if(row>=2) {
                     if (column == 7 || column == 6) {
                         if ((frame.board.getValueOfPiece(row-1,column-1) == Board.BLACK || frame.board.getValueOfPiece(row-1,column-1) == Board.BLACKKING) && frame.board.getValueOfPiece(row-2,column-2) == Board.EMPTY) {
+
                             result = true;
                         }
                     } else if (column == 0 || column == 1) {
