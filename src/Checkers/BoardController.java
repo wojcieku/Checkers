@@ -37,9 +37,9 @@ public class BoardController {
             this.currentColor=Board.RED;
         }
         if(currentColor == botsColor){
-            System.out.println("xdd");
             bot.analyze();
             bot.simulate();
+
             bot.move();
             //bot oblicza, wykonuje ruch
             this.currentColor=playersColor;

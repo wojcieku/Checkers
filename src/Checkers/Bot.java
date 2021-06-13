@@ -38,7 +38,6 @@ public class Bot {
         //dodawanie do coordinates
 //        int[][] = board.pieces;
         if (checkAllPiecesPossibleTakes(boardController.botsColor, boardController.botsKingColor, board.pieces)) { //jesli trzeba zbic -> znalezienie wszystkich mozliwosci bicia
-
             for (int row = 0; row < 8; row++) {
                 for (int col = 0; col < 8; col++) {
                     if (board.getValueOfPiece(row, col) == boardController.botsColor || board.getValueOfPiece(row, col) == boardController.botsKingColor) { //jezeli to jest pionek bota
@@ -104,6 +103,7 @@ public class Bot {
                                         if (col!=7){
                                             if(move.isItLegalSecondClickMove(col+1, row-1, col, row, Board.RED)){
                                                 int[] array = {row, col, row-1, col +1, Bot.MOVE};
+                                                coordinates.add(array);
 
                                             }
                                         }
@@ -122,6 +122,7 @@ public class Bot {
                                         if (col!=7){
                                             if(move.isItLegalSecondClickMove(col+1, row+1, col, row, Board.BLACK)){
                                                 int[] array = {row, col, row+1, col+1, Bot.MOVE};
+                                                coordinates.add(array);
 
                                             }
                                         }
@@ -140,10 +141,8 @@ public class Bot {
     }
 
     public void simulate() {
-        int sumMax = -100000;
-
+        int sumMax = -100;
         for (var array:coordinates) {
-//            int[][] localpieces = Arrays.copyOf(board.pieces,board.pieces.length);
             int[][] localpieces = new int[8][8];
             for(int row = 0;row < 8;row++){
                 for(int col = 0;col < 8;col++){
@@ -165,9 +164,9 @@ public class Bot {
             if(checkAllPiecesPossibleTakes(boardController.botsColor, boardController.botsKingColor, localpieces)){
                 sum +=2;
             }
-            if(isChanceForQueen(boardController.botsColor)){
-                sum +=5;
-            }
+//            if(isChanceForQueen(boardController.botsColor)){
+//                sum +=5;
+//            }
             if(sum>=sumMax){
                 bestMoves = array;
                 sumMax = sum;
@@ -192,11 +191,10 @@ public class Bot {
         System.out.println(Arrays.toString(bestMoves));
         //ruch
         if(bestMoves[4] == Bot.MOVE){
-                System.out.println("test");
             if(board.getValueOfPiece(rowFirst, colFirst) == boardController.botsColor) {
                 board.pieces[rowFirst][colFirst] = Board.EMPTY;
                 board.pieces[rowSecond][colSecond] = boardController.botsColor;
-            } else{
+            } else if(board.getValueOfPiece(rowFirst, colFirst) == boardController.botsKingColor){
                 board.pieces[rowFirst][colFirst] = Board.EMPTY;
                 board.pieces[rowSecond][colSecond] = boardController.botsKingColor;
             }
