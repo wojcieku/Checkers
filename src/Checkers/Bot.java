@@ -1,14 +1,25 @@
 package Checkers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Bot {
     private Board board;
     private Move move;
     private BoardController boardController; //stad ktory kolor ma ruch
-    private ArrayList<Integer> coordinates = new ArrayList<Integer>(); // zapis jednego ruchu: [wiersz1, kolumna1, wiersz2, kolumna2]
+//    private ArrayList<Integer> coordinates = new ArrayList<Integer>(); // zapis jednego ruchu: [wiersz1, kolumna1, wiersz2, kolumna2, czyBicie(0/1)]
+//    private ArrayList<Integer> bestMoves = new ArrayList<Integer>(); //lista z najlepszymi ruchami
+    private int[] bestMoves = new int[5];
+    private ArrayList<int[]> coordinates = new ArrayList<>();
+    private final static int TAKE = 1;
+    private final static int MOVE = 0;
 
-    //    int[][] coordinates = new int[48];
+    public Bot(Board board, Move move, BoardController boardController) {
+        this.board = board;
+        this.move = move;
+        this.boardController = boardController;
+    }
+
     public boolean checkAllPiecesPossibleTakes(int color, int colorQueen, int[][] board) {
         boolean result = false;
         for (int row = 0; row < 8; row++) {
@@ -25,7 +36,9 @@ public class Bot {
     public void analyze() {
         // przejscie przez plansze, dodanie mozliwych wspolrzednych
         //dodawanie do coordinates
+//        int[][] = board.pieces;
         if (checkAllPiecesPossibleTakes(boardController.botsColor, boardController.botsKingColor, board.pieces)) { //jesli trzeba zbic -> znalezienie wszystkich mozliwosci bicia
+
             for (int row = 0; row < 8; row++) {
                 for (int col = 0; col < 8; col++) {
                     if (board.getValueOfPiece(row, col) == boardController.botsColor || board.getValueOfPiece(row, col) == boardController.botsKingColor) { //jezeli to jest pionek bota
@@ -33,59 +46,34 @@ public class Bot {
                             switch (board.getValueOfPiece(row, col)) {
                                 case Board.RED:
                                     if (row >= 2) {
-                                        if (col == 7 || col == 6) {
+                                        if (col != 0 && col != 1) {
                                             if (move.legalTakeMove(col - 2, row - 2, col, row, Board.RED)) {
-                                                coordinates.add(row);
-                                                coordinates.add(col);
-                                                coordinates.add(row - 2);
-                                                coordinates.add(col - 2);
+                                                int[] array = {row, col, row-2, col -2, Bot.TAKE};
+                                                coordinates.add(array);
                                             }
-                                        } else if (col == 0 || col == 1) {
+                                        } if (col != 6 && col != 7) {
                                             if (move.legalTakeMove(col + 2, row - 2, col, row, Board.RED)) {
-                                                coordinates.add(row);
-                                                coordinates.add(col);
-                                                coordinates.add(col + 2);
-                                                coordinates.add(row - 2);
-                                            } //nizej: bicie w lewo, potem w prawo
-                                        } else if (((board.getValueOfPiece(row - 1, col - 1) == Board.BLACK) || (board.getValueOfPiece(row - 1, col - 1) == Board.BLACKKING)) && board.getValueOfPiece(row - 2, col - 2) == Board.EMPTY) {
-                                            coordinates.add(row);
-                                            coordinates.add(col);
-                                            coordinates.add(row - 2);
-                                            coordinates.add(col - 2);
-                                        } else if (move.legalTakeMove(col + 2, row - 2, col, row, Board.RED)) {
-                                            coordinates.add(row);
-                                            coordinates.add(col);
-                                            coordinates.add(col + 2);
-                                            coordinates.add(row - 2);
+
+                                                int[] array = {row, col, row-2, col +2, Bot.TAKE};
+                                                coordinates.add(array);
+                                            }
                                         }
                                     }
                                     break;
                                 case Board.BLACK:
                                     if (row <= 5) {
-                                        if (col == 7 || col == 6) {
+                                        if (col != 0 && col != 1) {
                                             if (move.legalTakeMove(col - 2, row + 2, col, row, Board.BLACK)) {
-                                                coordinates.add(row);
-                                                coordinates.add(col);
-                                                coordinates.add(row + 2);
-                                                coordinates.add(col - 2);
+
+                                                int[] array = {row, col, row+2, col -2, Bot.TAKE};
+                                                coordinates.add(array);
                                             }
-                                        } else if (col == 0 || col == 1) {
+                                        } if (col != 6 && col != 7) {
                                             if (move.legalTakeMove(col + 2, row + 2, col, row, Board.BLACK)) {
-                                                coordinates.add(row);
-                                                coordinates.add(col);
-                                                coordinates.add(row + 2);
-                                                coordinates.add(col + 2);
+
+                                                int[] array = {row, col, row+2, col+2, Bot.TAKE};
+                                                coordinates.add(array);
                                             }
-                                        } else if (move.legalTakeMove(col - 2, row + 2, col, row, Board.BLACK)) {
-                                            coordinates.add(row);
-                                            coordinates.add(col);
-                                            coordinates.add(row + 2);
-                                            coordinates.add(col - 2);
-                                        } else if (move.legalTakeMove(col + 2, row + 2, col, row, Board.BLACK)) {
-                                            coordinates.add(row);
-                                            coordinates.add(col);
-                                            coordinates.add(row + 2);
-                                            coordinates.add(col + 2);
                                         }
                                     }
                                     break;
@@ -106,65 +94,36 @@ public class Bot {
                             switch (board.getValueOfPiece(row, col)){
                                 case Board.RED:
                                     if(row>=1){
-                                        if(col==7){
+                                        if(col!=0){
                                             if(move.isItLegalSecondClickMove(col-1, row-1, col, row, Board.RED)){
-                                                coordinates.add(row);
-                                                coordinates.add(col);
-                                                coordinates.add(row-1);
-                                                coordinates.add(col-1);
+                                                int[] array = {row, col, row-1, col -1, Bot.MOVE};
+                                                coordinates.add(array);
+
                                             }
                                         }
-                                        else if (col==0){
+                                        if (col!=7){
                                             if(move.isItLegalSecondClickMove(col+1, row-1, col, row, Board.RED)){
-                                                coordinates.add(row);
-                                                coordinates.add(col);
-                                                coordinates.add(row-1);
-                                                coordinates.add(col+1);
+                                                int[] array = {row, col, row-1, col +1, Bot.MOVE};
+
                                             }
-                                        }
-                                        else if (move.isItLegalSecondClickMove(col-1, row-1, col, row, Board.RED)){
-                                            coordinates.add(row);
-                                            coordinates.add(col);
-                                            coordinates.add(row-1);
-                                            coordinates.add(col-1);
-                                        }
-                                        else if (move.isItLegalSecondClickMove(col+1, row-1, col, row, Board.RED)){
-                                            coordinates.add(row);
-                                            coordinates.add(col);
-                                            coordinates.add(row-1);
-                                            coordinates.add(col+1);
                                         }
                                     }
                                     break;
                                 case Board.BLACK:
                                     if(row<=6){
-                                        if(col==7){
-                                            if(move.isItLegalSecondClickMove(col-1, row+1, col, row, Board.RED)){
-                                                coordinates.add(row);
-                                                coordinates.add(col);
-                                                coordinates.add(row+1);
-                                                coordinates.add(col-1);
+                                        if(col!=0){
+
+                                            if(move.isItLegalSecondClickMove(col-1, row+1, col, row, Board.BLACK)){
+                                                int[] array = {row, col, row+1, col-1, Bot.MOVE};
+                                                coordinates.add(array);
+
                                             }
                                         }
-                                        else if (col==0){
-                                            if(move.isItLegalSecondClickMove(col+1, row+1, col, row, Board.RED)){
-                                                coordinates.add(row);
-                                                coordinates.add(col);
-                                                coordinates.add(row+1);
-                                                coordinates.add(col+1);
+                                        if (col!=7){
+                                            if(move.isItLegalSecondClickMove(col+1, row+1, col, row, Board.BLACK)){
+                                                int[] array = {row, col, row+1, col+1, Bot.MOVE};
+
                                             }
-                                        }
-                                        else if (move.isItLegalSecondClickMove(col-1, row+1, col, row, Board.RED)){
-                                            coordinates.add(row);
-                                            coordinates.add(col);
-                                            coordinates.add(row+1);
-                                            coordinates.add(col-1);
-                                        }
-                                        else if (move.isItLegalSecondClickMove(col+1, row+1, col, row, Board.RED)){
-                                            coordinates.add(row);
-                                            coordinates.add(col);
-                                            coordinates.add(row+1);
-                                            coordinates.add(col+1);
                                         }
                                     }
                                     break;
@@ -181,14 +140,39 @@ public class Bot {
     }
 
     public void simulate() {
-        int[][] localpieces = board.pieces;
-        int sum = 0;
-        ArrayList<Integer> bestMoves = new ArrayList<Integer>(); //lista z najlepszymi ruchami
-        for (int i = 0; i < (coordinates.size() - 3); i += 4) {
-            localpieces[coordinates.get(i)][coordinates.get(i + 1)] = Board.EMPTY;
-            localpieces[coordinates.get(i + 2)][coordinates.get(i + 3)] = boardController.botsColor;
+        int sumMax = -100000;
+
+        for (var array:coordinates) {
+//            int[][] localpieces = Arrays.copyOf(board.pieces,board.pieces.length);
+            int[][] localpieces = new int[8][8];
+            for(int row = 0;row < 8;row++){
+                for(int col = 0;col < 8;col++){
+                    localpieces[row][col] = board.pieces[row][col];
+                }
+            }
+//            localpieces = board.pieces.clone();
+            //czy ruch jest biciem
+            int sum = 0;
+            if(array[4] == Bot.MOVE) {
+                localpieces[array[0]][array[1]] = Board.EMPTY;
+                localpieces[array[2]][array[3]] = boardController.botsColor;
+            } else{ //bicie dla pionkow
+                take(array[0], array[1], array[2], array[3], boardController.botsColor, localpieces);
+            }
+            if(checkAllPiecesPossibleTakes(boardController.playersColor, boardController.playersKingColor, localpieces)){
+                sum -= 20;
+            }
+            if(checkAllPiecesPossibleTakes(boardController.botsColor, boardController.botsKingColor, localpieces)){
+                sum +=2;
+            }
+            if(isChanceForQueen(boardController.botsColor)){
+                sum +=5;
+            }
+            if(sum>=sumMax){
+                bestMoves = array;
+                sumMax = sum;
+            }
             //metody sprawdzajace czy przeciwnik bota ma mozliwosc bicia albo bot - jesli tak to suma - albo + 1 [najplytsza mozliwosc]
-            //
 
         }
     }
@@ -200,10 +184,45 @@ public class Bot {
     }
 
     public void move() {
-        //ruch
-        coordinates.clear(); //reset listy mozliwych ruchow
-    }
 
+        int rowFirst = bestMoves[0];
+        int colFirst = bestMoves[1];
+        int rowSecond = bestMoves[2];
+        int colSecond = bestMoves[3];
+        System.out.println(Arrays.toString(bestMoves));
+        //ruch
+        if(bestMoves[4] == Bot.MOVE){
+                System.out.println("test");
+            if(board.getValueOfPiece(rowFirst, colFirst) == boardController.botsColor) {
+                board.pieces[rowFirst][colFirst] = Board.EMPTY;
+                board.pieces[rowSecond][colSecond] = boardController.botsColor;
+            } else{
+                board.pieces[rowFirst][colFirst] = Board.EMPTY;
+                board.pieces[rowSecond][colSecond] = boardController.botsKingColor;
+            }
+        } else{
+
+            boardController.take(rowFirst, colFirst, rowSecond, colSecond, boardController.botsColor);
+        }
+        if(rowSecond == 7){
+            board.pieces[rowSecond][colSecond]=Board.BLACKKING;
+        }
+        board.repaint();
+//        System.out.println(coordinates);
+//        System.out.println(bestMoves);
+
+        coordinates.clear(); //reset listy mozliwych ruchow
+        Arrays.fill(bestMoves, 0);
+//        System.out.println(coordinates);
+//        System.out.println(bestMoves);
+    }
+    public void take(int firstRow, int firstColumn, int secondRow, int secondColumn, int currentColor, int[][] board){
+        board[firstRow][firstColumn] = Board.EMPTY;
+        board[secondRow][secondColumn] = currentColor;
+        int rowBetween = (firstRow+secondRow)/2;
+        int colBetween = (firstColumn+secondColumn)/2;
+        board[rowBetween][colBetween] = Board.EMPTY;
+    }
     public boolean canIMove(int column, int row, int[][] board) {
         boolean result = false;
         int colorofpiece = board[row][column];

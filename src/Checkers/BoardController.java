@@ -4,10 +4,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class BoardController {
-    public int botsColor;
-    public int botsKingColor;
-    public int playersColor;
-    public int playersKingColor;
+    public int botsColor = Board.BLACK;
+    public int botsKingColor = Board.BLACKKING;
+    public int playersColor = Board.RED;
+    public int playersKingColor = Board.REDKING;
     private Frame frame;
     private Move move;
     private Bot bot; //dodac do konstruktora
@@ -37,8 +37,17 @@ public class BoardController {
             this.currentColor=Board.RED;
         }
         if(currentColor == botsColor){
-            //bot oblicza, wykonuje ruch poprzez klikniecie
+            System.out.println("xdd");
+            bot.analyze();
+            bot.simulate();
+            bot.move();
+            //bot oblicza, wykonuje ruch
+            this.currentColor=playersColor;
         }
+    }
+
+    public void setBot(Bot bot) {
+        this.bot = bot;
     }
 
     public int getCurrentColor() {

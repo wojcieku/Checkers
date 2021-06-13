@@ -11,6 +11,8 @@ public class Game {
         Frame frame = new Frame();
         Move move = new Move(frame);
         BoardController controller = new BoardController(frame,move);
+        Bot bot = new Bot(frame.board, move, controller);
+        controller.setBot(bot);
         frame.setVisible(true);
         JButton red = new JButton("Czerwony");
         JButton black = new JButton("Czarny");
