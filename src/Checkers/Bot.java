@@ -112,7 +112,6 @@ public class Bot {
                                 case Board.BLACK:
                                     if(row<=6){
                                         if(col!=0){
-
                                             if(move.isItLegalSecondClickMove(col-1, row+1, col, row, Board.BLACK)){
                                                 int[] array = {row, col, row+1, col-1, Bot.MOVE};
                                                 coordinates.add(array);
@@ -123,7 +122,6 @@ public class Bot {
                                             if(move.isItLegalSecondClickMove(col+1, row+1, col, row, Board.BLACK)){
                                                 int[] array = {row, col, row+1, col+1, Bot.MOVE};
                                                 coordinates.add(array);
-
                                             }
                                         }
                                     }
@@ -174,6 +172,7 @@ public class Bot {
             //metody sprawdzajace czy przeciwnik bota ma mozliwosc bicia albo bot - jesli tak to suma - albo + 1 [najplytsza mozliwosc]
 
         }
+//        sumMax = -100;
     }
 
     public boolean isChanceForQueen(int colorToCheck) {
@@ -198,7 +197,7 @@ public class Bot {
                 board.pieces[rowFirst][colFirst] = Board.EMPTY;
                 board.pieces[rowSecond][colSecond] = boardController.botsKingColor;
             }
-        } else{
+        } else if(bestMoves[4] == Bot.TAKE){
 
             boardController.take(rowFirst, colFirst, rowSecond, colSecond, boardController.botsColor);
         }

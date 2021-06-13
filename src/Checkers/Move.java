@@ -286,6 +286,7 @@ public class Move {
     }
     public boolean isItLegalSecondClickMove(int columnsecond,int rowsecond,int columnfirst,int rowfirst,int color){
         boolean result = true;
+
         switch (color){
             case Board.REDKING:
             case Board.BLACKKING:
@@ -331,7 +332,7 @@ public class Move {
                 }
                 break;
         }
-
+        if(frame.board.pieces[rowsecond][columnsecond]!=Board.EMPTY){result=false;}
         return result;
     }
 }
