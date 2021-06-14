@@ -39,8 +39,19 @@ public class BoardController {
         if(currentColor == botsColor){
             bot.analyze();
             bot.simulate();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    bot.move();
 
-            bot.move();
+                }
+            }).start();
+
             //bot oblicza, wykonuje ruch
             this.currentColor=playersColor;
         }
