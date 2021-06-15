@@ -134,6 +134,10 @@ public class Bot {
                                                     coordinates.add(array);
                                                     System.out.println("lewy górny bicie");
                                                 }
+                                            } else if (board.getValueOfPiece(row + 1, col + 1) == Board.RED || board.getValueOfPiece(row + 1, col + 1) == Board.REDKING) {
+                                                int[] array = {row, col, row1 - 1, col1 - 1, Bot.TAKE};
+                                                coordinates.add(array);
+                                                System.out.println("lewy górny bicie jak pionek");
                                             }
                                         //}
                                     }
