@@ -143,7 +143,6 @@ public class BoardController {
                                 frame.board.setValueOfPiece(rowsecond,columnsecond,Board.BLACKKING);
                             }
                             setCurrentColor();
-                            setCurrentColorKing();
                         }
                     }
                 }else{
@@ -159,7 +158,6 @@ public class BoardController {
                             frame.board.setValueOfPiece(rowsecond,columnsecond,Board.BLACKKING);
                         }
                         setCurrentColor();
-                        setCurrentColorKing();
                     }
 
                 }
