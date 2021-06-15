@@ -80,8 +80,10 @@ public class Bot {
                                     int row1, col1;
                                     for (row1 = row + 1, col1 = col + 1; row1 <= 7 && col1 <= 7; row1++, col1++ ) { //prawy dolny skos
                                         if ((board.getValueOfPiece(row1, col1) == Board.BLACKKING || board.getValueOfPiece(row1, col1) == Board.BLACK) && (row1 != 7 || col1 != 7) && (row1 != 6 || col1 != 6) && board.getValueOfPiece(row1 + 1, col1 + 1) == Board.EMPTY && board.getValueOfPiece(row1 - 1, col1 - 1) == Board.EMPTY) {
-                                            int[] array = {row, col, row1 + 1, col1 + 1, Bot.QUEENTAKE};
-                                            coordinates.add(array);
+                                            if (move.checkRightBotDiagonalEmptySpaces(col, row, col1, row1 )) {
+                                                int[] array = {row, col, row1 + 1, col1 + 1, Bot.QUEENTAKE};
+                                                coordinates.add(array);
+                                            }
                                         }
                                     }
                                     for (row1 = row - 1, col1 = col - 1; row1 >= 0 && col1 >= 0; row1--, col1-- ) {// lewy górny skos
@@ -92,9 +94,11 @@ public class Bot {
                                     }
                                     for (row1 = row - 1, col1 = col + 1; row1 >= 0 && col1 <= 7; row1--, col1++ ) {// prawy górny skos
                                         if ((board.getValueOfPiece(row1, col1) == Board.BLACKKING || board.getValueOfPiece(row1, col1) == Board.BLACK) && (row1 != 0 || col1 != 7 ) && (row1 != 1 || col1 != 6) && board.getValueOfPiece(row1 - 1, col1 + 1) == Board.EMPTY && board.getValueOfPiece(row1 + 1, col1 - 1) == Board.EMPTY) {
+                                            if (move.checkRightTopDiagonalEmptySpaces(col, row, col1, row1)) {
+                                                int[] array = {row, col, row1 - 1, col1 + 1, Bot.QUEENTAKE};
+                                                coordinates.add(array);
+                                            }
 
-                                            int[] array = {row, col, row1 - 1, col1 + 1, Bot.QUEENTAKE};
-                                            coordinates.add(array);
                                         }
                                     }
                                     for (row1 = row + 1, col1 = col - 1; row1 <= 7 && col1 >= 0; row1++, col1-- ) {// lewy dolny skos
