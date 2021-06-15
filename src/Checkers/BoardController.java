@@ -43,7 +43,7 @@ public class BoardController {
                 @Override
                 public void run() {
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -53,7 +53,8 @@ public class BoardController {
             }).start();
 
             //bot oblicza, wykonuje ruch
-            this.currentColor=playersColor;
+            this.currentColor = playersColor;
+            this.currentColorKing = playersKingColor;
         }
     }
 
