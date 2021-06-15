@@ -11,8 +11,8 @@ public class BoardController {
     private Frame frame;
     private Move move;
     private Bot bot; //dodac do konstruktora
-    private int currentColor = Board.RED;
-    private int currentColorKing = Board.REDKING;
+    private int currentColor = Board.BLACK;
+    private int currentColorKing = Board.BLACKKING;
 
     public void setCurrentColorKing(){
         if(this.currentColorKing==Board.REDKING){
