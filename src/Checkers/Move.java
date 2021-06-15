@@ -93,8 +93,8 @@ public class Move {
         if(isItEmpty(columnsecond,rowsecond) && isItOnTheSameDiagonal(columnfirst,rowfirst,columnsecond,rowsecond)) {
             switch (color) {
                 case Board.RED:
-                    if (isItBlack(Math.abs(columnsecond + columnfirst) / 2, (rowfirst + rowsecond) / 2) ||
-                            isItBlackKing(Math.abs(columnsecond + columnfirst) / 2, (rowfirst + rowsecond) / 2)){
+                    if (isItBlack((columnsecond + columnfirst) / 2, (rowfirst + rowsecond) / 2) ||
+                            isItBlackKing((columnsecond + columnfirst) / 2, (rowfirst + rowsecond) / 2)){
                         if (Math.abs(columnsecond - columnfirst) != 2) {
                             result = false;
                         }

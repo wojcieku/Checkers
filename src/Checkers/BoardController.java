@@ -48,7 +48,6 @@ public class BoardController {
                         e.printStackTrace();
                     }
                     bot.move();
-
                 }
             }).start();
 
@@ -118,7 +117,6 @@ public class BoardController {
             if(firstclick){
                 firstClickColumnNumber = e.getX()/50;
                 firstClickRowNumber = e.getY()/50;
-                System.out.println(frame.board.getValueOfPiece(firstClickRowNumber,firstClickColumnNumber));
                 if(move.canIMove(firstClickColumnNumber, firstClickRowNumber) || move.canITake(firstClickColumnNumber,firstClickRowNumber)) {
                     if(frame.board.getValueOfPiece(firstClickRowNumber,firstClickColumnNumber)==getCurrentColor() ||
                             frame.board.getValueOfPiece(firstClickRowNumber,firstClickColumnNumber)==getCurrentColorKing()){
@@ -126,15 +124,7 @@ public class BoardController {
                             frame.board.setSelectedRow(firstClickRowNumber);
                             frame.board.repaint();
                             colorOfFirstClick = frame.board.getValueOfPiece(firstClickRowNumber,firstClickColumnNumber);
-                            if(chaintake) {
-                                if(rowchaintake==firstClickRowNumber && columnchaintake==firstClickColumnNumber) {
-                                    firstclick = !firstclick;
-                                }else{
-                                    clearChosenTile();
-                                }
-                            }else{
-                                firstclick=!firstclick;
-                            }
+                            firstclick=!firstclick;
                     }
                 }
             }else {
@@ -162,21 +152,14 @@ public class BoardController {
                         take(firstClickRowNumber,firstClickColumnNumber,rowsecond,columnsecond,getCurrentColor());
                         else
                             queenTake(firstClickRowNumber,firstClickColumnNumber,rowsecond,columnsecond,getCurrentColorKing());
-                        if(!move.canITake(columnsecond,rowsecond)) {
-                            chaintake=false;
-                            setCurrentColor();
-                            setCurrentColorKing();
-                        }else{
-                            chaintake=true;
-                            columnchaintake=columnsecond;
-                            rowchaintake=rowsecond;
-                        }
                         if(colorOfFirstClick==Board.RED && rowsecond==0){
                             frame.board.setValueOfPiece(rowsecond,columnsecond,Board.REDKING);
                         }
                         if(colorOfFirstClick==Board.BLACK && rowsecond==7){
                             frame.board.setValueOfPiece(rowsecond,columnsecond,Board.BLACKKING);
                         }
+                        setCurrentColor();
+                        setCurrentColorKing();
                     }
 
                 }
