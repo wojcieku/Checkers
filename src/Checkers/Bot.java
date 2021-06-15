@@ -53,7 +53,6 @@ public class Bot {
                                             }
                                         } if (col != 6 && col != 7) {
                                             if (move.legalTakeMove(col + 2, row - 2, col, row, Board.RED)) {
-
                                                 int[] array = {row, col, row-2, col +2, Bot.TAKE};
                                                 coordinates.add(array);
                                             }
