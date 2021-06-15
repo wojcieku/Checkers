@@ -11,8 +11,9 @@ public class Bot {
 //    private ArrayList<Integer> bestMoves = new ArrayList<Integer>(); //lista z najlepszymi ruchami
     private int[] bestMoves = new int[5];
     private ArrayList<int[]> coordinates = new ArrayList<>();
-    private final static int TAKE = 1;
     private final static int MOVE = 0;
+    private final static int TAKE = 1;
+    private final static int QUEENTAKE = 2;
 
     public Bot(Board board, Move move, BoardController boardController) {
         this.board = board;
@@ -216,8 +217,10 @@ public class Bot {
             if(array[4] == Bot.MOVE) {
                 localpieces[array[0]][array[1]] = Board.EMPTY;
                 localpieces[array[2]][array[3]] = boardController.botsColor;
-            } else{ //bicie dla pionkow
+            } else if(array[4]==Bot.TAKE){ //bicie dla pionkow
                 take(array[0], array[1], array[2], array[3], boardController.botsColor, localpieces);
+            } else if(array[4]==Bot.QUEENTAKE){
+                queenTake(array[0], array[1], array[2], array[3], boardController.botsKingColor, localpieces);
             }
             if(checkAllPiecesPossibleTakes(boardController.playersColor, boardController.playersKingColor, localpieces)){
                 sum -= 20;
@@ -225,9 +228,9 @@ public class Bot {
             if(checkAllPiecesPossibleTakes(boardController.botsColor, boardController.botsKingColor, localpieces)){
                 sum +=2;
             }
-//            if(isChanceForQueen(boardController.botsColor)){
-//                sum +=5;
-//            }
+            if(isChanceForQueen(boardController.botsColor, localpieces)){
+                sum +=30;
+            }
             if(sum>=sumMax){
                 bestMoves = array;
                 sumMax = sum;
@@ -238,8 +241,13 @@ public class Bot {
 //        sumMax = -100;
     }
 
-    public boolean isChanceForQueen(int colorToCheck) {
+    public boolean isChanceForQueen(int colorToCheck, int[][] board) {
         boolean check = false;
+        for(int col = 0; col <7; col++){
+            if(board[7][col] == Board.BLACKKING){
+                check = true;
+            }
+        }
         //sprawdzenie czy jest ryzyko/szansa zdobycia damy
         return check;
     }
@@ -263,6 +271,8 @@ public class Bot {
         } else if(bestMoves[4] == Bot.TAKE){
 
             boardController.take(rowFirst, colFirst, rowSecond, colSecond, boardController.botsColor);
+        } else if(bestMoves[4] == Bot.QUEENTAKE){
+            boardController.queenTake(rowFirst, colFirst, rowSecond, colSecond, boardController.botsKingColor);
         }
         if(rowSecond == 7){
             board.pieces[rowSecond][colSecond]=Board.BLACKKING;
@@ -424,5 +434,19 @@ public class Bot {
                 break;
         }
         return result;
+    }
+    public void queenTake(int firstRow, int firstColumn, int secondRow, int secondColumn, int currentColor, int[][] board){
+        board[firstRow][firstColumn] = Board.EMPTY;
+        board[secondRow][secondColumn] = currentColor;
+        if(secondRow<firstRow && secondColumn<firstColumn){
+            board[secondRow+1][secondColumn+1] = Board.EMPTY;
+        }
+
+        if(secondRow>firstRow && secondColumn<firstColumn)
+            board[secondRow-1][secondColumn+1] = Board.EMPTY;
+        if(secondRow<firstRow && secondColumn>firstColumn)
+            board[secondRow+1][secondColumn-1] = Board.EMPTY;
+        if(secondRow>firstRow && secondColumn>firstColumn)
+            board[secondRow-1][secondColumn-1] = Board.EMPTY;
     }
 }
