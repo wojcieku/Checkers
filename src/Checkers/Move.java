@@ -73,7 +73,7 @@ public class Move {
     }
     public boolean checkRightBotDiagonalEmptySpaces(int columnFirst,int rowFirst, int columnSecond,int rowSecond){
         int i,j;
-        for (i = rowFirst + 1, j = columnFirst + 1; i > rowSecond - 1 && j < columnSecond - 1; i++, j++) {
+        for (i = rowFirst + 1, j = columnFirst + 1; i < rowSecond - 1 && j < columnSecond - 1; i++, j++) {
             if (frame.board.getValueOfPiece(i, j) != Board.EMPTY) return true;
         }
         return false;
@@ -236,6 +236,7 @@ public class Move {
             case Board.RED:
                 if(row>=2) {
                     if (column<6) {
+                        System.out.println(column);
                         if((isItBlackKing(column+1,row-1) || isItBlack(column+1,row-1) && isItEmpty(column+2,row-2))){
                             result=true;
                         }
@@ -255,7 +256,7 @@ public class Move {
                         }
                     }
                     if (column>1) {
-                        if((isItBlackKing(column-1,row-1) || isItBlack(column-1,row-1) && isItEmpty(column-2,row+2))){
+                        if((isItRedKing(column-1,row+1) || isItRed(column-1,row+1) && isItEmpty(column-2,row+2))){
                             result=true;
                         }
                     }
