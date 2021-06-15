@@ -80,7 +80,7 @@ public class Bot {
                                     int row1, col1;
                                     for (row1 = row + 1, col1 = col + 1; row1 <= 7 && col1 <= 7; row1++, col1++ ) { //prawy dolny skos
                                         if ((board.getValueOfPiece(row1, col1) == Board.BLACKKING || board.getValueOfPiece(row1, col1) == Board.BLACK) && (row1 != 7 || col1 != 7) && (row1 != 6 || col1 != 6) && board.getValueOfPiece(row1 + 1, col1 + 1) == Board.EMPTY && board.getValueOfPiece(row1 - 1, col1 - 1) == Board.EMPTY) {
-                                            if (move.checkRightBotDiagonalEmptySpaces(col, row, col1, row1 )) {
+                                            if (!move.checkRightBotDiagonalEmptySpaces(col, row, col1, row1 )) {
                                                 int[] array = {row, col, row1 + 1, col1 + 1, Bot.QUEENTAKE};
                                                 coordinates.add(array);
                                             }
@@ -88,13 +88,15 @@ public class Bot {
                                     }
                                     for (row1 = row - 1, col1 = col - 1; row1 >= 0 && col1 >= 0; row1--, col1-- ) {// lewy górny skos
                                          if ((board.getValueOfPiece(row1, col1) == Board.BLACKKING || board.getValueOfPiece(row1, col1) == Board.BLACK) && (row1 != 0 || col1 != 0 ) && (row1 != 1 || col1 != 1) && board.getValueOfPiece(row1 - 1, col1 - 1) == Board.EMPTY && board.getValueOfPiece(row1 + 1, col1 + 1) == Board.EMPTY) {
-                                            int[] array = {row, col, row1 - 1, col1 - 1, Bot.QUEENTAKE};
-                                            coordinates.add(array);
-                                        }
+                                             if (!move.checkRightTopDiagonalEmptySpaces(col, row, col1, row1)) {
+                                                 int[] array = {row, col, row1 - 1, col1 - 1, Bot.QUEENTAKE};
+                                                 coordinates.add(array);
+                                             }
+                                         }
                                     }
                                     for (row1 = row - 1, col1 = col + 1; row1 >= 0 && col1 <= 7; row1--, col1++ ) {// prawy górny skos
                                         if ((board.getValueOfPiece(row1, col1) == Board.BLACKKING || board.getValueOfPiece(row1, col1) == Board.BLACK) && (row1 != 0 || col1 != 7 ) && (row1 != 1 || col1 != 6) && board.getValueOfPiece(row1 - 1, col1 + 1) == Board.EMPTY && board.getValueOfPiece(row1 + 1, col1 - 1) == Board.EMPTY) {
-                                            if (move.checkRightTopDiagonalEmptySpaces(col, row, col1, row1)) {
+                                            if (!move.checkRightTopDiagonalEmptySpaces(col, row, col1, row1)) {
                                                 int[] array = {row, col, row1 - 1, col1 + 1, Bot.QUEENTAKE};
                                                 coordinates.add(array);
                                             }
@@ -102,9 +104,11 @@ public class Bot {
                                         }
                                     }
                                     for (row1 = row + 1, col1 = col - 1; row1 <= 7 && col1 >= 0; row1++, col1-- ) {// lewy dolny skos
-                                        if ((board.getValueOfPiece(row1, col1) == Board.BLACKKING || board.getValueOfPiece(row1, col1) == Board.BLACK) && (row1 != 7 || col1 != 0 ) && (row1 != 6 || col1 != 1) && board.getValueOfPiece(row1 + 1, col1 - 1) == Board.EMPTY && board.getValueOfPiece(row1 - 1, col1 + 1) == Board.EMPTY) {
-                                            int[] array = {row, col, row1 - 1, col1 + 1, Bot.QUEENTAKE};
-                                            coordinates.add(array);
+                                        if ((board.getValueOfPiece(row1, col1) == Board.BLACKKING || board.getValueOfPiece(row1, col1) == Board.BLACK) && (row1 != 7 || col1 != 0) && (row1 != 6 || col1 != 1) && board.getValueOfPiece(row1 + 1, col1 - 1) == Board.EMPTY && board.getValueOfPiece(row1 - 1, col1 + 1) == Board.EMPTY) {
+                                            if (!move.checkRightTopDiagonalEmptySpaces(col, row, col1, row1)) {
+                                                int[] array = {row, col, row1 - 1, col1 + 1, Bot.QUEENTAKE};
+                                                coordinates.add(array);
+                                            }
                                         }
                                     }
                                     break;
@@ -112,45 +116,54 @@ public class Bot {
                                     //int row1, col1;
                                     for (row1 = row + 1, col1 = col + 1; row1 <= 7 && col1 <= 7; row1++, col1++ ) { //prawy dolny skos
                                        // if (move.legalTakeMove(col1, row1, col, row, Board.BLACKKING)) {
-                                            if ((board.getValueOfPiece(row1, col1) == Board.REDKING || board.getValueOfPiece(row1, col1) == Board.RED) && (row1 != 7 || col1 != 7) && (row1 != 6 || col1 != 6) && board.getValueOfPiece(row1 + 1, col1 + 1) == Board.EMPTY) {
-                                                int[] array = {row, col, row1 + 1, col1 + 1, Bot.QUEENTAKE};
-                                                coordinates.add(array);
-                                                System.out.println("prawy dolny bicie");
+                                            if ((board.getValueOfPiece(row1, col1) == Board.REDKING || board.getValueOfPiece(row1, col1) == Board.RED) && (row1 != 7 || col1 != 7) && (row1 != 6 || col1 != 6) && board.getValueOfPiece(row1 + 1, col1 + 1) == Board.EMPTY && board.getValueOfPiece(row1 - 1, col1 - 1) == Board.EMPTY) {
+                                                if (!move.checkRightTopDiagonalEmptySpaces(col, row, col1, row1)) {
+                                                    int[] array = {row, col, row1 + 1, col1 + 1, Bot.QUEENTAKE};
+                                                    coordinates.add(array);
+                                                    System.out.println("prawy dolny bicie");
+                                                }
                                             }
                                         //}
                                     }
                                     for (row1 = row - 1, col1 = col - 1; row1 >= 0 && col1 >= 0; row1--, col1-- ) {// lewy górny skos
                                         //if (move.legalTakeMove(col1, row1, col, row, Board.BLACKKING)) {
-                                            if ((board.getValueOfPiece(row1, col1) == Board.REDKING || board.getValueOfPiece(row1, col1) == Board.RED) && (row1 != 0 || col1 != 0) && (row1 != 1 || col1 != 1) && board.getValueOfPiece(row1 - 1, col1 - 1) == Board.EMPTY) {
-                                                int[] array = {row, col, row1 - 1, col1 - 1, Bot.QUEENTAKE};
-                                                coordinates.add(array);
-                                                System.out.println("lewy górny bicie");
+                                            if ((board.getValueOfPiece(row1, col1) == Board.REDKING || board.getValueOfPiece(row1, col1) == Board.RED) && (row1 != 0 || col1 != 0) && (row1 != 1 || col1 != 1) && board.getValueOfPiece(row1 - 1, col1 - 1) == Board.EMPTY && board.getValueOfPiece(row1 + 1, col1 + 1) == Board.EMPTY) {
+                                                if (!move.checkRightTopDiagonalEmptySpaces(col, row, col1, row1)) {
+                                                    int[] array = {row, col, row1 - 1, col1 - 1, Bot.QUEENTAKE};
+                                                    coordinates.add(array);
+                                                    System.out.println("lewy górny bicie");
+                                                }
                                             }
                                         //}
                                     }
                                     for (row1 = row - 1, col1 = col + 1; row1 >= 0 && col1 <= 7; row1--, col1++ ) {// prawy górny skos
                                         //if (move.legalTakeMove(col1, row1, col, row, Board.BLACKKING)) {
-                                            if ((board.getValueOfPiece(row1, col1) == Board.REDKING || board.getValueOfPiece(row1, col1) == Board.RED) && (row1 != 0 || col1 != 7) && (row1 != 1 || col1 != 6) && board.getValueOfPiece(row1 - 1, col1 + 1) == Board.EMPTY) {
-                                                int[] array = {row, col, row1 - 1, col1 + 1, Bot.QUEENTAKE};
-                                                coordinates.add(array);
-                                                System.out.println("prawy górny bicie");
+                                            if ((board.getValueOfPiece(row1, col1) == Board.REDKING || board.getValueOfPiece(row1, col1) == Board.RED) && (row1 != 0 || col1 != 7) && (row1 != 1 || col1 != 6) && board.getValueOfPiece(row1 - 1, col1 + 1) == Board.EMPTY && board.getValueOfPiece(row1 - 1, col1 - 1) == Board.EMPTY) {
+                                                if (!move.checkRightTopDiagonalEmptySpaces(col, row, col1, row1)) {
+                                                    int[] array = {row, col, row1 - 1, col1 + 1, Bot.QUEENTAKE};
+                                                    coordinates.add(array);
+                                                    System.out.println("prawy górny bicie");
+                                                }
                                             }
                                         //}
                                     }
                                     for (row1 = row + 1, col1 = col - 1; row1 <= 7 && col1 >= 0; row1++, col1-- ) {// lewy dolny skos
-                                       // if (move.legalTakeMove(col1, row1, col, row, Board.BLACKKING)) {
-                                            if ((board.getValueOfPiece(row1, col1) == Board.REDKING || board.getValueOfPiece(row1, col1) == Board.RED) && (row1 != 7 || col1 != 0) && (row1 != 6 || col1 != 1) && board.getValueOfPiece(row1 + 1, col1 - 1) == Board.EMPTY) {
-                                                int[] array = {row, col, row1 - 1, col1 + 1, Bot.QUEENTAKE};
+                                        // if (move.legalTakeMove(col1, row1, col, row, Board.BLACKKING)) {
+                                        if ((board.getValueOfPiece(row1, col1) == Board.REDKING || board.getValueOfPiece(row1, col1) == Board.RED) && (row1 != 7 || col1 != 0) && (row1 != 6 || col1 != 1) && board.getValueOfPiece(row1 + 1, col1 - 1) == Board.EMPTY && board.getValueOfPiece(row1 - 1, col1 + 1) == Board.EMPTY) {
+                                            if (!move.checkRightTopDiagonalEmptySpaces(col, row, col1, row1)) {
+                                                int[] array = {row, col, row1 + 1, col1 - 1, Bot.QUEENTAKE};
                                                 coordinates.add(array);
                                                 System.out.println("lewy dolny bicie");
                                             }
+                                        }
+                                    }
                                        // }
                                     }
                                     break;
                             }
                         }
                     }
-                }
+
             }
         } else { //znalezienie wszystkich mozliwosci zwyklego ruchu
             for (int row = 0; row < 8; row++) {
