@@ -53,7 +53,8 @@ public class BoardController {
             }).start();
 
             //bot oblicza, wykonuje ruch
-            this.currentColor=playersColor;
+            this.currentColor = playersColor;
+            this.currentColorKing = playersKingColor;
         }
     }
 

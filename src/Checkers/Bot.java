@@ -38,11 +38,12 @@ public class Bot {
         // przejscie przez plansze, dodanie mozliwych wspolrzednych
         //dodawanie do coordinates
 //        int[][] = board.pieces;
-        if (checkAllPiecesPossibleTakes(boardController.botsColor, boardController.botsKingColor, board.pieces)) { //jesli trzeba zbic -> znalezienie wszystkich mozliwosci bicia
+        if (move.checkAllPiecesPossibleTakes(boardController.botsColor, boardController.botsKingColor)) { //jesli trzeba zbic -> znalezienie wszystkich mozliwosci bicia
             for (int row = 0; row < 8; row++) {
                 for (int col = 0; col < 8; col++) {
                     if (board.getValueOfPiece(row, col) == boardController.botsColor || board.getValueOfPiece(row, col) == boardController.botsKingColor) { //jezeli to jest pionek bota
                         if (move.canITake(col, row)) { //na razie tylko dla zwyklych pionkow
+                            System.out.println("musze bic dupa");
                             switch (board.getValueOfPiece(row, col)) {
                                 case Board.RED:
                                     if (row >= 2) {
@@ -106,7 +107,7 @@ public class Bot {
                                     for (row1 = row + 1, col1 = col - 1; row1 <= 7 && col1 >= 0; row1++, col1-- ) {// lewy dolny skos
                                         if ((board.getValueOfPiece(row1, col1) == Board.BLACKKING || board.getValueOfPiece(row1, col1) == Board.BLACK) && (row1 != 7 || col1 != 0) && (row1 != 6 || col1 != 1) && board.getValueOfPiece(row1 + 1, col1 - 1) == Board.EMPTY && board.getValueOfPiece(row1 - 1, col1 + 1) == Board.EMPTY) {
                                             if (!move.checkRightTopDiagonalEmptySpaces(col, row, col1, row1)) {
-                                                int[] array = {row, col, row1 - 1, col1 + 1, Bot.QUEENTAKE};
+                                                int[] array = {row, col, row1 + 1, col1 + 1, Bot.QUEENTAKE};
                                                 coordinates.add(array);
                                             }
                                         }
@@ -166,6 +167,7 @@ public class Bot {
 
             }
         } else { //znalezienie wszystkich mozliwosci zwyklego ruchu
+            System.out.println("nie musze bic dupa");
             for (int row = 0; row < 8; row++) {
                 for (int col = 0; col < 8; col++) {
                     if (board.getValueOfPiece(row, col) == boardController.botsColor || board.getValueOfPiece(row, col) == boardController.botsKingColor) { //jezeli to jest pionek bota
