@@ -263,31 +263,39 @@ public class Move {
                 }
                 break;
             case Board.BLACKKING:
-                for(i=row-1,j=column-1;i>0 && j>0;i--,j--){
-                    if(frame.board.getValueOfPiece(i,j)==Board.REDKING || frame.board.getValueOfPiece(i,j)==Board.RED){
-                        if(frame.board.getValueOfPiece(i-1,j-1)==Board.EMPTY){
-                            result=true;
+                for(i=row-1,j=column-1;i>0 && j>0;i--,j--) {
+                    if (checkLeftTopDiagonalEmptySpaces(column, row, j-1, i-1)) {
+                        if (frame.board.getValueOfPiece(i, j) == Board.REDKING || frame.board.getValueOfPiece(i, j) == Board.RED) {
+                            if (frame.board.getValueOfPiece(i - 1, j - 1) == Board.EMPTY) {
+                                result = true;
+                            }
                         }
                     }
                 }
-                for(i=row+1,j=column-1;i<7 && j>0;i++,j--){
-                    if(frame.board.getValueOfPiece(i,j)==Board.REDKING || frame.board.getValueOfPiece(i,j)==Board.RED){
-                        if(frame.board.getValueOfPiece(i+1,j-1)==Board.EMPTY){
-                            result=true;
+                for(i=row+1,j=column-1;i<7 && j>0;i++,j--) {
+                    if (checkLeftBotDiagonalEmptySpaces(column, row, j-1, i+1)) {
+                        if (frame.board.getValueOfPiece(i, j) == Board.REDKING || frame.board.getValueOfPiece(i, j) == Board.RED) {
+                            if (frame.board.getValueOfPiece(i + 1, j - 1) == Board.EMPTY) {
+                                result = true;
+                            }
                         }
                     }
                 }
-                for(i=row-1,j=column+1;i>0 && j<7;i--,j++){
-                    if(frame.board.getValueOfPiece(i,j)==Board.REDKING || frame.board.getValueOfPiece(i,j)==Board.RED){
-                        if(frame.board.getValueOfPiece(i-1,j+1)==Board.EMPTY){
-                            result=true;
+                for(i=row-1,j=column+1;i>0 && j<7;i--,j++) {
+                    if (checkRightTopDiagonalEmptySpaces(column, row, j+1, i-1)) {
+                        if (frame.board.getValueOfPiece(i, j) == Board.REDKING || frame.board.getValueOfPiece(i, j) == Board.RED) {
+                            if (frame.board.getValueOfPiece(i - 1, j + 1) == Board.EMPTY) {
+                                result = true;
+                            }
                         }
                     }
                 }
-                for(i=row+1,j=column+1;i<7 && j<7;i++,j++){
-                    if(frame.board.getValueOfPiece(i,j)==Board.REDKING || frame.board.getValueOfPiece(i,j)==Board.RED){
-                        if(frame.board.getValueOfPiece(i+1,j+1)==Board.EMPTY){
-                            result=true;
+                for(i=row+1,j=column+1;i<7 && j<7;i++,j++) {
+                    if (checkRightBotDiagonalEmptySpaces(column, row, j+1, i+1)) {
+                        if (frame.board.getValueOfPiece(i, j) == Board.REDKING || frame.board.getValueOfPiece(i, j) == Board.RED) {
+                            if (frame.board.getValueOfPiece(i + 1, j + 1) == Board.EMPTY) {
+                                result = true;
+                            }
                         }
                     }
                 }
