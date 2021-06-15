@@ -1,7 +1,5 @@
 package Checkers;
 
-import java.awt.event.MouseEvent;
-
 public class Move {
     private Frame frame;
     public Move(Frame frame){

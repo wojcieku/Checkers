@@ -117,6 +117,7 @@ public class BoardController {
             if(firstclick){
                 firstClickColumnNumber = e.getX()/50;
                 firstClickRowNumber = e.getY()/50;
+                System.out.println(frame.board.getValueOfPiece(firstClickRowNumber,firstClickColumnNumber));
                 if(move.canIMove(firstClickColumnNumber, firstClickRowNumber) || move.canITake(firstClickColumnNumber,firstClickRowNumber)) {
                     if(frame.board.getValueOfPiece(firstClickRowNumber,firstClickColumnNumber)==getCurrentColor() ||
                             frame.board.getValueOfPiece(firstClickRowNumber,firstClickColumnNumber)==getCurrentColorKing()){
