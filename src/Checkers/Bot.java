@@ -365,10 +365,10 @@ public class Bot {
         } else if (bestMoves[4] == Bot.QUEENTAKE) {
             boardController.queenTake(rowFirst, colFirst, rowSecond, colSecond, boardController.botsKingColor);
         }
-        if (rowSecond == 7) {
+        if (rowSecond == 7 && boardController.botsColor==Board.BLACK) {
             board.pieces[rowSecond][colSecond] = Board.BLACKKING;
         }
-        if (rowSecond == 0) {
+        if (rowSecond == 0 && boardController.botsColor==Board.RED) {
             board.pieces[rowSecond][colSecond] = Board.REDKING;
         }
 
