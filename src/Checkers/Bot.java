@@ -43,6 +43,8 @@ public class Bot {
                 for (int col = 0; col < 8; col++) {
                     if (board.getValueOfPiece(row, col) == boardController.botsColor || board.getValueOfPiece(row, col) == boardController.botsKingColor) { //jezeli to jest pionek bota
                         if (move.canITake(col, row)) { //na razie tylko dla zwyklych pionkow
+                            System.out.println(col);
+                            System.out.println(row);
                             switch (board.getValueOfPiece(row, col)) {
                                 case Board.RED:
                                     if (row >= 2) {
@@ -365,10 +367,10 @@ public class Bot {
         } else if (bestMoves[4] == Bot.QUEENTAKE) {
             boardController.queenTake(rowFirst, colFirst, rowSecond, colSecond, boardController.botsKingColor);
         }
-        if (rowSecond == 7) {
+        if (rowSecond == 7 && boardController.botsColor==Board.BLACK) {
             board.pieces[rowSecond][colSecond] = Board.BLACKKING;
         }
-        if (rowSecond == 0) {
+        if (rowSecond == 0 && boardController.botsColor==Board.RED) {
             board.pieces[rowSecond][colSecond] = Board.REDKING;
         }
 

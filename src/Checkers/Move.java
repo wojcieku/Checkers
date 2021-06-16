@@ -106,8 +106,8 @@ public class Move {
                     }
                     break;
                 case Board.BLACK:
-                    if (isItRed((columnsecond + columnfirst) / 2, (rowfirst + rowsecond) / 2) ||
-                            isItRedKing((columnsecond + columnfirst) / 2, (rowfirst + rowsecond) / 2)){
+                    if (isItRed((columnsecond + columnfirst) / 2, (rowsecond+rowfirst) / 2) ||
+                            isItRedKing((columnsecond + columnfirst) / 2, (rowsecond+rowfirst) / 2)){
                         if (Math.abs(columnsecond - columnfirst) != 2) {
                             result = false;
                         }
@@ -299,30 +299,38 @@ public class Move {
                 break;
             case Board.REDKING:
                 for(i=row-1,j=column-1;i>0 && j>0;i--,j--){
-                    if(frame.board.getValueOfPiece(i,j)==Board.BLACKKING || frame.board.getValueOfPiece(i,j)==Board.BLACK){
-                        if(frame.board.getValueOfPiece(i-1,j-1)==Board.EMPTY){
-                            result=true;
+                    if (!checkLeftTopDiagonalEmptySpaces(column, row, j-1, i-1)) {
+                        if (frame.board.getValueOfPiece(i, j) == Board.BLACKKING || frame.board.getValueOfPiece(i, j) == Board.BLACK) {
+                            if (frame.board.getValueOfPiece(i - 1, j - 1) == Board.EMPTY) {
+                                result = true;
+                            }
                         }
                     }
                 }
-                for(i=row+1,j=column-1;i<7 && j>0;i++,j--){
-                    if(frame.board.getValueOfPiece(i,j)==Board.BLACKKING || frame.board.getValueOfPiece(i,j)==Board.BLACK){
-                        if(frame.board.getValueOfPiece(i+1,j-1)==Board.EMPTY){
-                            result=true;
+                for(i=row+1,j=column-1;i<7 && j>0;i++,j--) {
+                    if (!checkLeftBotDiagonalEmptySpaces(column, row, j - 1, i + 1)) {
+                        if (frame.board.getValueOfPiece(i, j) == Board.BLACKKING || frame.board.getValueOfPiece(i, j) == Board.BLACK) {
+                            if (frame.board.getValueOfPiece(i + 1, j - 1) == Board.EMPTY) {
+                                result = true;
+                            }
                         }
                     }
                 }
-                for(i=row-1,j=column+1;i>0 && j<7;i--,j++){
-                    if(frame.board.getValueOfPiece(i,j)==Board.BLACKKING || frame.board.getValueOfPiece(i,j)==Board.BLACK){
-                        if(frame.board.getValueOfPiece(i-1,j+1)==Board.EMPTY){
-                            result=true;
+                for(i=row-1,j=column+1;i>0 && j<7;i--,j++) {
+                    if (!checkRightTopDiagonalEmptySpaces(column, row, j + 1, i - 1)) {
+                        if (frame.board.getValueOfPiece(i, j) == Board.BLACKKING || frame.board.getValueOfPiece(i, j) == Board.BLACK) {
+                            if (frame.board.getValueOfPiece(i - 1, j + 1) == Board.EMPTY) {
+                                result = true;
+                            }
                         }
                     }
                 }
-                for(i=row+1,j=column+1;i<7 && j<7;i++,j++){
-                    if(frame.board.getValueOfPiece(i,j)==Board.BLACKKING || frame.board.getValueOfPiece(i,j)==Board.BLACK){
-                        if(frame.board.getValueOfPiece(i+1,j+1)==Board.EMPTY){
-                            result=true;
+                for(i=row+1,j=column+1;i<7 && j<7;i++,j++) {
+                    if (!checkRightBotDiagonalEmptySpaces(column, row, j + 1, i + 1)) {
+                        if (frame.board.getValueOfPiece(i, j) == Board.BLACKKING || frame.board.getValueOfPiece(i, j) == Board.BLACK) {
+                            if (frame.board.getValueOfPiece(i + 1, j + 1) == Board.EMPTY) {
+                                result = true;
+                            }
                         }
                     }
                 }
