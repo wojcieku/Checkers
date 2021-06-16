@@ -43,8 +43,6 @@ public class Bot {
                 for (int col = 0; col < 8; col++) {
                     if (board.getValueOfPiece(row, col) == boardController.botsColor || board.getValueOfPiece(row, col) == boardController.botsKingColor) { //jezeli to jest pionek bota
                         if (move.canITake(col, row)) { //na razie tylko dla zwyklych pionkow
-                            System.out.println(col);
-                            System.out.println(row);
                             switch (board.getValueOfPiece(row, col)) {
                                 case Board.RED:
                                     if (row >= 2) {
@@ -128,7 +126,6 @@ public class Bot {
                                             if (!move.checkRightTopDiagonalEmptySpaces(col, row, col1, row1)) {
                                                 int[] array = {row, col, row1 , col1 , Bot.QUEENTAKE};
                                                 coordinates.add(array);
-                                                System.out.println("prawy dolny bicie");
                                             }
                                         }
                                         //}
@@ -139,7 +136,6 @@ public class Bot {
                                             if (!move.checkRightTopDiagonalEmptySpaces(col, row, col1, row1)) {
                                                 int[] array = {row, col, row1 , col1 , Bot.QUEENTAKE};
                                                 coordinates.add(array);
-                                                System.out.println("lewy górny bicie");
                                             }
                                         }
                                         //}
@@ -150,7 +146,6 @@ public class Bot {
                                             if (!move.checkRightTopDiagonalEmptySpaces(col, row, col1, row1)) {
                                                 int[] array = {row, col, row1 , col1, Bot.QUEENTAKE};
                                                 coordinates.add(array);
-                                                System.out.println("prawy górny bicie");
                                             }
                                         }
                                         //}
@@ -161,7 +156,6 @@ public class Bot {
                                             if (!move.checkRightTopDiagonalEmptySpaces(col, row, col1, row1)) {
                                                 int[] array = {row, col, row1 , col1 , Bot.QUEENTAKE};
                                                 coordinates.add(array);
-                                                System.out.println("lewy dolny bicie");
                                             }
                                         }
                                     }
@@ -361,7 +355,6 @@ public class Bot {
         int colFirst = bestMoves[1];
         int rowSecond = bestMoves[2];
         int colSecond = bestMoves[3];
-        System.out.println(Arrays.toString(bestMoves));
         //ruch
         if (bestMoves[4] == Bot.MOVE) {
             if (board.getValueOfPiece(rowFirst, colFirst) == boardController.botsColor) {
@@ -386,13 +379,9 @@ public class Bot {
         }
 
         board.repaint();
-//        System.out.println(coordinates);
-//        System.out.println(bestMoves);
 
         coordinates.clear(); //reset listy mozliwych ruchow
         Arrays.fill(bestMoves, 0);
-//        System.out.println(coordinates);
-//        System.out.println(bestMoves);
         boardController.frame.isGameFinished();
     }
 

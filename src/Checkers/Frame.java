@@ -35,8 +35,6 @@ public class Frame extends JFrame {
                 }
             }
         }
-        System.out.println("Liczba czarnych: " + sumofBlacks);
-        System.out.println("Liczba czerwonych: " + sumOfReds);
         if (sumOfReds <= 0) {
             JOptionPane.showMessageDialog(this,"Czarny zwyciężył!");
         } else if (sumofBlacks <= 0) {
