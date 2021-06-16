@@ -20,6 +20,8 @@ public class Game {
         JLabel chooseColor = new JLabel("Choose your color");
         colorChoiceFrame.setLayout(new FlowLayout());
         colorChoiceFrame.setSize(350, 90);
+        colorChoiceFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        boardFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         colorChoiceFrame.add(chooseColor);
         colorChoiceFrame.add(red);
         colorChoiceFrame.add(black);

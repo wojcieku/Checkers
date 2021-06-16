@@ -300,25 +300,35 @@ public class Bot {
                     localpieces[row][col] = board.pieces[row][col];
                 }
             }
-//            localpieces = board.pieces.clone();
             //czy ruch jest biciem
             int sum = 0;
             if (array[4] == Bot.MOVE) {
-                localpieces[array[0]][array[1]] = Board.EMPTY;
-                localpieces[array[2]][array[3]] = boardController.botsColor;
+                if(localpieces[array[0]][array[1]] == Board.RED || localpieces[array[0]][array[1]] == Board.BLACK) {
+                    localpieces[array[0]][array[1]] = Board.EMPTY;
+                    localpieces[array[2]][array[3]] = boardController.botsColor;
+                }
+                if(localpieces[array[0]][array[1]] == Board.REDKING || localpieces[array[0]][array[1]] == Board.BLACKKING){
+                    localpieces[array[0]][array[1]] = Board.EMPTY;
+                    localpieces[array[2]][array[3]] = boardController.botsKingColor;
+                }
             } else if (array[4] == Bot.TAKE) { //bicie dla pionkow
                 take(array[0], array[1], array[2], array[3], boardController.botsColor, localpieces);
             } else if (array[4] == Bot.QUEENTAKE) {
                 queenTake(array[0], array[1], array[2], array[3], boardController.botsKingColor, localpieces);
             }
             if (checkAllPiecesPossibleTakes(boardController.playersColor, boardController.playersKingColor, localpieces)) {
-                sum -= 20;
+                if(localpieces[array[2]][array[3]] == boardController.botsColor) {
+                    sum -= 20;
+                }
+                if(localpieces[array[2]][array[3]] == boardController.botsKingColor){
+                    sum -= 30;
+                }
             }
             if (checkAllPiecesPossibleTakes(boardController.botsColor, boardController.botsKingColor, localpieces)) {
-                sum += 2;
+                sum += 10;
             }
-            if (isChanceForQueen(boardController.botsColor, localpieces)) {
-                sum += 30;
+            if (isChanceForQueen(boardController.botsColor, localpieces, localpieces[array[2]][array[3]])) {
+                sum += 15;
             }
             if (sum >= sumMax) {
                 bestMoves = array;
@@ -327,17 +337,18 @@ public class Bot {
             //metody sprawdzajace czy przeciwnik bota ma mozliwosc bicia albo bot - jesli tak to suma - albo + 1 [najplytsza mozliwosc]
 
         }
-//        sumMax = -100;
     }
 
-    public boolean isChanceForQueen(int colorToCheck, int[][] board) {
+    public boolean isChanceForQueen(int colorToCheck, int[][] board, int typeOfFigure) {
         boolean check = false;
-        for (int col = 0; col < 7; col++) {
-            if (board[7][col] == colorToCheck && colorToCheck == Board.BLACK) {
-                check = true;
-            }
-            if (board[0][col] == colorToCheck && colorToCheck == Board.RED) {
-                check = true;
+        if(typeOfFigure != Board.BLACKKING && typeOfFigure != Board.REDKING) {
+            for (int col = 0; col < 7; col++) {
+                if (board[7][col] == colorToCheck && colorToCheck == Board.BLACK) {
+                    check = true;
+                }
+                if (board[0][col] == colorToCheck && colorToCheck == Board.RED) {
+                    check = true;
+                }
             }
         }
         //sprawdzenie czy jest ryzyko/szansa zdobycia damy
