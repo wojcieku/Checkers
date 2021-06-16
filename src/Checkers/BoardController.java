@@ -8,7 +8,7 @@ public class BoardController {
     public int botsKingColor = Board.BLACKKING;
     public int playersColor = Board.RED;
     public int playersKingColor = Board.REDKING;
-    private Frame frame;
+    public Frame frame;
     private Move move;
     private Bot bot; //dodac do konstruktora
     private int currentColor = Board.BLACK;
@@ -161,7 +161,7 @@ public class BoardController {
                     }
 
                 }
-                frame.isGameFinished();
+                //frame.isGameFinished();
                 firstclick = !firstclick;
                 frame.board.repaint();
             }

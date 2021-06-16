@@ -382,6 +382,7 @@ public class Bot {
         Arrays.fill(bestMoves, 0);
 //        System.out.println(coordinates);
 //        System.out.println(bestMoves);
+        boardController.frame.isGameFinished();
     }
 
     public void take(int firstRow, int firstColumn, int secondRow, int secondColumn, int currentColor, int[][] board) {
